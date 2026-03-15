@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <templates>
+        <div t-name="fs_merge_contact_phone.GroupedListTemplate" owl="1" class="d-block">
+            <table t-if="data.groups_vals.length" class="table table-sm o_list_table table table-sm table-hover table-striped o_list_table_grouped">
+                <thead><tr>
+                <t t-foreach="data.options.columns" t-as="col">
+                    <th t-esc="col['label']" t-attf-class="{{col['class']}}"/>
+                </t>
+                </tr></thead>
+                <t t-foreach="data.groups_vals" t-as="group_vals">
+                    <ListOne2ManyGroup group_vals="group_vals" options="data.options"/>
+                </t>
+            </table>
+            <t t-if="data.options.discarded_number">
+                <span><t t-esc="data.options.discarded_number"/> are not shown in the preview</span>
+            </t>
+        </div>
+
+        <tbody t-name="fs_merge_contact_phone.GroupedItemsTemplate" owl="1">
+            <tr style="background-color: #dee2e6;">
+                <td t-attf-colspan="{{props.options.columns.length}}">
+                    <t t-raw="props.group_vals.group_name"/>
+                </td>
+            </tr>
+            <t t-foreach="props.group_vals.items_vals" t-as="item_vals">
+                <ListOne2ManyItem item_vals="item_vals[2]" options="props.options"/>
+            </t>
+        </tbody>
+
+        <tr t-name="fs_merge_contact_phone.GroupedItemTemplate" owl="1">
+            <t t-set="cols" t-value="props.options.columns"/>
+            <td t-raw="props.item_vals[cols[0]['field']]" t-attf-class="{{cols[0]['class']}}"/>
+            <td t-raw="props.item_vals[cols[1]['field']]" t-attf-class="{{cols[1]['class']}}"/>
+            <table t-if="props.item_vals[cols[2]['field']]">
+                <tbody>
+                    <t t-foreach="props.item_vals[cols[2]['field']]" t-as="address">
+                        <tr>
+                            <td t-raw="address"/>
+                        </tr>
+                    </t>
+                </tbody>
+            </table>
+            <td t-raw="props.item_vals[cols[3]['field']]" t-attf-class="{{cols[3]['class']}}"/>
+            <td></td>
+<!--            <td t-raw="props.item_vals[cols[5]['field']]" t-attf-class="{{cols[5]['class']}}"/>-->
+<!--            <td t-raw="props.item_vals[cols[6]['field']]" t-attf-class="{{cols[6]['class']}}"/>-->
+            <t t-set="act" t-value="props.item_vals[cols[5]['field']]"/>
+            <t t-set="orther" t-value="props.item_vals[cols[6]['field']]"/>
+            <td><a href="#" class="btn" style="background-color: #337ab7 !important" t-on-click="unlink_partner(act[0], act[1])"><i class="fa fa-trash-o fa-lg" style="color: white !important" aria-hidden="true"></i></a></td>
+            <td><a style="color: #337ab7 !important; transition: all 0.3s ease; cursor: pointer;" t-on-click="merge_parner(orther[0], orther[1], orther[2])" onmouseover="this.style.filter='brightness(150%)'; this.style.color='#4a90e2 !important'" onmouseout="this.style.filter='brightness(100%)'; this.style.color='#337ab7 !important'"><b>Gom liên hệ</b></a></td>
+        </tr>
+    </templates>
+
+</odoo>

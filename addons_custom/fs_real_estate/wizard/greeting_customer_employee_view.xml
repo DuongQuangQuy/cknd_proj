@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="greeting_customer_employee_view_form" model="ir.ui.view">
+        <field name="name">greeting.customer.employee.view.form</field>
+        <field name="model">greeting.customer.employee</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <group string="Nhà đất - Khách hàng">
+                            <field name="estate_id" readonly="1" />
+                            <field name="customer_id" readonly="1"/>
+                        </group>
+                        <group string="Nhân viên">
+                            <field name="partner_id" required="1" />
+                            <field name="offering_estate_id" invisible="1" />
+                            <field name="search_demand_id" invisible="1" />
+                        </group>
+                    </group>
+
+
+                </sheet>
+                    <footer>
+                        <button name="button_done_greeted" string="Hoàn thành" type="object" class="btn-primary"/>
+                        <button string="Hủy" class="btn-secondary" special="cancel" data-hotkey="z" />
+                    </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

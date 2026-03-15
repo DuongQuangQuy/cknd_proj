@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="advertising_sample_wizard_view_form" model="ir.ui.view">
+        <field name="name">advertising.sample.wizard.view.form</field>
+        <field name="model">advertising.sample.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="real_estate_id" invisible="1" />
+                        <field name="x_advertising_template_0" invisible="1"/>
+                    </group>
+                    <notebook>
+                        <!-- <page name="welcome" string="Mẫu chào khách">
+                            <button string="Copy text" name="action_copy_welcome_sample" type="object" class="oe_highlight"/>
+                            <field name="x_advertising_template_3" widget="html"/>
+                        </page> -->
+                        <!-- <page name="advertising_news" string="Đăng tin quảng cáo BDS">
+                            <button string="Copy text" name="action_copy_advertising_news_sample" type="object" class="oe_highlight"/>
+                            <field name="advertising_news_sample" widget="html" />
+                        </page>
+                        <page name="alonhadat_advertising_news" string="Đăng tin quảng cáo Alonhadat.com.vn">
+                            <button string="Copy text" name="action_copy_alonhadat_advertising_news_sample" type="object" class="oe_highlight"/>
+                            <field name="alonhadat_advertising_news_sample" widget="html" />
+                        </page> -->
+                    </notebook>
+                </sheet>
+                <footer>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

@@ -1,0 +1,75 @@
+.o_estate_search_form_view .o_form_sheet_bg .o_form_sheet {
+    max-width: 100% !important;
+    width: 100% !important;
+}
+
+.o_estate_search_form_view .o_FormRenderer_chatterContainer {
+    max-width: 100%;
+}
+
+
+/* Điều chỉnh khoảng cách trong sheet */
+
+.o_estate_search_form_view .o_form_sheet {
+    padding-top: 0px !important;
+    padding-bottom: 0px !important;
+}
+
+
+/* Điều chỉnh khoảng cách giữa các nhóm */
+
+.o_estate_search_form_view .o_form_sheet_bg .o_group {
+    margin-bottom: 0px !important;
+}
+
+
+/* Điều chỉnh chiều cao khoảng cách giữa các trường */
+
+.o_estate_search_form_view .o_group>.o_group_title,
+.o_estate_search_form_view .o_group .o_inner_group {
+    margin-top: -30px !important;
+    margin-bottom: 0px !important;
+}
+
+
+/* Giảm chiều cao giữa các table */
+
+.o_estate_search_form_view table {
+    margin-bottom: 0px !important;
+}
+
+.o_reload_button {
+    border-radius: 50%;
+    /* Makes the button circular */
+    padding: 10px;
+    /* Adjust padding to make it more circular */
+    width: 40px;
+    /* Set fixed width */
+    height: 40px;
+    /* Set fixed height */
+    text-align: center;
+    /* Center the icon */
+    line-height: 20px;
+    /* Adjust line-height to center the icon vertically */
+    display: inline-block;
+    font-size: 18px;
+    /* Optional: Adjust icon size */
+    border: none;
+    /* Remove any default borders */
+    margin-left: 100px;
+}
+
+.my-pager-next-btn {
+    float: right;
+    padding: 6px 12px;
+    font-size: 16px;
+    border-radius: 0 4px 4px 0;
+    background-color: #6c757d;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.my-pager-next-btn:hover {
+    background-color: #5a6268;
+}

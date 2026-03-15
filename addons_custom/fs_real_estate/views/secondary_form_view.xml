@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="secondary_form_tree_view" model="ir.ui.view">
+            <field name="name">secondary.form.tree.view</field>
+            <field name="model">secondary.form</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="secondary_form_action" model="ir.actions.act_window">
+            <field name="name">Hình thức phụ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">secondary.form</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+
+    </data>
+</odoo>

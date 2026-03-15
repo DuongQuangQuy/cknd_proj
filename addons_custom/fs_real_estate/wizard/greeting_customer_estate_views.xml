@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="greeting_customer_estate_view_form" model="ir.ui.view">
+        <field name="name">greeting.customer.estate.view.form</field>
+        <field name="model">greeting.customer.estate</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+
+                        <field name="estate_id" readonly="1" />
+                        <field name="search_partner" placeholder="Số ĐT/Mã KH/Tên KH" />
+                        <button name="button_search_infor_customer"
+                            string="Tìm kiếm"
+                            type="object"
+                            class="btn-primary"
+                            icon="fa-search-plus"
+                            style="min-width:100px; min-heigth:50px;"/>
+                    </group>
+                    <notebook>
+                        <page name="search_demand" string="Yêu cầu phù hợp">
+                            <field name="search_demand_ids" readonly="1">
+                                    <tree>
+                                        <field name="date_request"/>
+                                        <field name="user_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="street_ids" widget="many2many_tags"/>
+                                        <field name="ward_ids" widget="many2many_tags"/>
+                                        <field name="district_ids" widget="many2many_tags"/>
+                                        <field name="city_ids" widget="many2many_tags"/>
+                                        <field name="state"/>
+                                        <button type="object" name="view_offering_estate" string=" " class="oe_highlight" icon="fa-phone"/>
+                                    </tree>
+                                </field>
+                        </page>
+                        <page name="search_demand_other" string="Yêu cầu khác">
+                            <field name="search_demand_other_ids" readonly="1">
+                                    <tree>
+                                        <field name="date_request"/>
+                                        <field name="user_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="street_ids" widget="many2many_tags"/>
+                                        <field name="ward_ids" widget="many2many_tags"/>
+                                        <field name="district_ids" widget="many2many_tags"/>
+                                        <field name="city_ids" widget="many2many_tags"/>
+                                        <field name="state"/>
+                                        <button type="object" name="view_offering_estate" string=" " class="oe_highlight" icon="fa-phone"/>
+                                    </tree>
+                                </field>
+                        </page>
+                        <page name="offered_greeting_customer_estate" string="Yêu cầu đã chào">
+                            <field name="offered_search_demand_ids" readonly="1">
+                                    <tree>
+                                        <field name="date_request"/>
+                                        <field name="user_id"/>
+                                        <field name="partner_id"/>
+                                        <field name="street_ids" widget="many2many_tags"/>
+                                        <field name="ward_ids" widget="many2many_tags"/>
+                                        <field name="district_ids" widget="many2many_tags"/>
+                                        <field name="city_ids" widget="many2many_tags"/>
+                                        <field name="state"/>
+<!--                                        <button type="object" name="view_offering_estate" string=" " class="oe_highlight" icon="fa-handshake"/>-->
+                                    </tree>
+                                </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                    <footer>
+<!--                        <button name="button_apply" string="Xác nhận" type="object" class="btn-primary"/>-->
+                        <button string="Hủy" class="btn-secondary" special="cancel" data-hotkey="z" />
+                    </footer>
+            </form>
+        </field>
+    </record>
+
+</odoo>

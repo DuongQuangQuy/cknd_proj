@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="res_district_tree_view" model="ir.ui.view">
+            <field name="name">res.district.tree.view</field>
+            <field name="model">res.district</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <header>
+                         <button name="update_name" string="Cập nhật tên" type="object" />
+                    </header>
+                    <field name="name"/>
+                    <field name="ward_ids" widget="many2many_tags"/>
+                    <field name="city_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="res_district_view_form" model="ir.ui.view">
+        <field name="name">res.district.view.form</field>
+        <field name="model">res.district</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="city_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Phường">
+                            <field name="ward_ids" nolabel="1" >
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <button name="add_street" string="Thêm đường" type="object" class="btn-secondary" />
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id="res_district_action" model="ir.actions.act_window">
+            <field name="name">Quận/Huyện</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.district</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

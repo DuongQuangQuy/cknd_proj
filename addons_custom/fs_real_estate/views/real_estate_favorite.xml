@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Form View -->
+        <record id="view_real_estate_favorite_form" model="ir.ui.view">
+            <field name="name">real.estate.favorite.form</field>
+            <field name="model">real.estate.favorite</field>
+            <field name="arch" type="xml">
+                <form string="Real Estate Favorites">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="user_id" readonly="1"/>
+                            <field name="date_added" readonly="1"/>
+                        </group>
+                        <notebook>
+                            <page string="Properties">
+                                <field name="estate_ids" readonly="0">
+                                    <tree>
+                                        <field name="code"/>
+                                        <field name="type_demand_id"/>
+                                        <field name="street_id"/>
+                                        <field name="ward_id"/>
+                                        <field name="district_id"/>
+                                        <field name="total_price"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <footer>
+                        <button name="save_favorites" string="Save" type="object" class="btn-primary"/>
+                        <button string="Cancel" class="btn-secondary" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <!-- Tree View -->
+        <record id="view_real_estate_favorite_tree" model="ir.ui.view">
+            <field name="name">real.estate.favorite.tree</field>
+            <field name="model">real.estate.favorite</field>
+            <field name="arch" type="xml">
+                <tree string="Real Estate Favorites">
+                    <field name="name"/>
+                    <field name="user_id"/>
+                    <field name="date_added"/>
+                    <field name="estate_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Action -->
+        <record id="action_real_estate_favorite" model="ir.actions.act_window">
+            <field name="name">Favorites</field>
+            <field name="res_model">real.estate.favorite</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- Menu Item -->
+        <menuitem id="menu_real_estate_favorite"
+                  name="Favorites"
+                  parent="fs_real_estate.menu_real_estate_root"
+                  action="action_real_estate_favorite"
+                  sequence="50"/>
+    </data>
+</odoo>

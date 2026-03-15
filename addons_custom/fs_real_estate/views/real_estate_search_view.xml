@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="real_estate_search_view_form" model="ir.ui.view">
+            <field name="name">real.estate.search.view.form</field>
+            <field name="model">real.estate.search</field>
+            <field name="arch" type="xml">
+                <form string="" class="o_estate_search_form_view" create="false">
+<!--                    <header>-->
+<!--                        -->
+<!--                    </header>-->
+                    <sheet >
+                        <group>
+                            <group string="Liên hệ">
+                                <field name="code"/>
+                                <field name="contact"/>
+                                <field name="note"/>
+                            </group>
+                            <group string="Diện tích - Giá cả">
+                                <table>
+	                				<tr>
+	                					<th>#</th><th>Từ</th><th>Tới</th><th>#</th><th>Từ</th><th>Tới</th>
+	                				</tr>
+	                				<tr>
+	                					<th>Ngang:</th><td><field name="horizontal_from"/></td><td><field name="horizontal_to"/></td>
+	                					<th>Dài: </th><td><field name="length_from"/></td><td><field name="length_to"/></td>
+	                				</tr>
+	                				<tr>
+	                					<th>DTKV: </th><td><field name="acreage_area_from"/></td><td><field name="acreage_area_to"/></td>
+	                					<th>DTSD: </th><td><field name="acreage_use_from"/></td><td><field name="acreage_use_to"/></td>
+	                				</tr>
+	                				<tr>
+	                					<th>Giá: </th>
+	                					<td><field name="total_price_from"/></td>
+	                					<td><field name="total_price_to"/></td>
+
+<!--	                					<th><label for="currency_id" invisible="1"></label></th>-->
+<!--	                					<td colspan="2">-->
+<!--	                						<field name='currency_id'  invisible="1" required="1" options="{'no_create': True, 'no_open': True}" />-->
+<!--               							</td>-->
+	                				</tr>
+	                			</table>
+
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <table style="width:90% !important;">
+	                				<tr>
+	                					<th>#</th><th>Từ</th><th>Tới</th>
+	                				</tr>
+	                				<tr>
+	                					<th>Ngày nhập:</th><td><field name="date_entry_from"/></td><td><field name="date_entry_to"/></td>
+	                				</tr>
+                                    <tr>
+	                					<th>Ngày hết hạn HĐ: </th><td><field name="date_contract_exp_from"/></td><td><field name="date_contract_exp_to"/></td>
+	                				</tr>
+                                    <tr>
+	                					<th>Ngày cập nhật: </th><td><field name="date_updated_from"/></td><td><field name="date_updated_to"/></td>
+	                				</tr>
+	                			</table>
+                            </group>
+                            <group>
+                                <br/>
+                                <field name="source_estate_partner_id"/>
+                                <field name="source_image"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Vị trí">
+                                <field name="city_ids"    options="{'no_open': True,'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
+                                <field name="district_ids"
+                                         options="{'no_open': True,'no_create_edit': True, 'no_create': True }"
+                                          widget="many2many_tags"/>
+                                <field name="ward_ids"
+                                    options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"
+                                      widget="many2many_tags"/>
+                                  <field name="number_house" />
+                                <label for="number_house_from" string="Số nhà(Kiểu số)"/>
+                                <div colspan="1" style="display: flex; width: 98%;">
+                                    <div style="flex: 0 0 49%; margin-right: 10px;">
+                                        <field name="number_house_from" placeholder="Số nhà từ" nolabel="1" style="width: 100%;"/>
+                                    </div>
+                                    <div style="flex: 0 0 49%;">
+                                        <field name="number_house_to" placeholder="Số nhà đến" nolabel="1" style="width: 100%;"/>
+                                    </div>
+                                </div>
+                                <field name="street_ids"
+                                            options="{'no_open': True, 'no_create_edit': True, 'no_create': True}"
+                                            class="street_select" placeholder="Chọn Đường" style="width: 100%;" widget="many2many_tags"/>
+<!--                                <field name="group_direction_id" />-->
+                                <field name="way_ids" widget="many2many_tags"/>
+                                <field name="type_number" />
+                            </group>
+                            <group string="Cấu trúc">
+                                <field name="category_ids" widget="many2many_tags"/>
+                                <field name="type_estate_ids" widget="many2many_tags"/>
+<!--                                <field name="group_style_id" />-->
+                                <field name="style_ids" widget="many2many_tags"/>
+                                <field name="type_demand_ids" widget="many2many_tags"/>
+                                <field name="secondary_form_ids" widget="many2many_tags"/>
+                                <field name="structure_ids" widget="many2many_tags"/>
+                                <field name="job_profession_ids" widget="many2many_tags"/>
+                                <field name="direction_ids" widget="many2many_tags"/>
+
+                            </group>
+                        </group>
+                    </sheet>
+<!--                    <div class="search_actions col-md-8">-->
+<!--&lt;!&ndash;		               			<span class="btn btn-primary btnHiddenSearchInfo" &ndash;&gt;-->
+<!--&lt;!&ndash;		               					title='Print'&ndash;&gt;-->
+<!--&lt;!&ndash;										groups="real_estate.group_user_admin,real_estate.group_user_chiakhach"&ndash;&gt;-->
+<!--&lt;!&ndash;								>&ndash;&gt;-->
+<!--&lt;!&ndash;		                			<i class="fa fa-print" aria-hidden="true"></i> <span></span> &ndash;&gt;-->
+<!--&lt;!&ndash;		                		</span>&ndash;&gt;-->
+<!--&lt;!&ndash;	               				<button name="create_new_demand" type="object" help='Thêm mới'&ndash;&gt;-->
+<!--&lt;!&ndash;	               					attrs="{'invisible': [('customer_id', '!=', False )]}" &ndash;&gt;-->
+<!--&lt;!&ndash;	               					class="btn btn-primary btn_new_demnd_by_search" >&ndash;&gt;-->
+<!--&lt;!&ndash;	               					<i class="fa fa-plus" aria-hidden="true"></i><span> </span> &ndash;&gt;-->
+<!--&lt;!&ndash;	               				</button>&ndash;&gt;-->
+<!--&lt;!&ndash;	               				 &ndash;&gt;-->
+<!--&lt;!&ndash;	               				<a class="btn btn-primary save_to_favious" title="Lưu vao danh sách.." data-model="estate.demand" >&ndash;&gt;-->
+<!--&lt;!&ndash;	               					<i class="fa fa-save"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;	               				&ndash;&gt;-->
+<!--&lt;!&ndash;								<a class="btn btn-primary gioi_thieu_demand" title="" data-model="estate.demand" >Gioi thieu</a> &ndash;&gt;-->
+
+<!--	               				<a class="btn btn-primary delete" title="Xóa" data-model="estate.demand" >-->
+<!--	               							<i class="fa fa-trash"></i></a>-->
+<!--&lt;!&ndash;	               				<a groups="real_estate.group_user_admin,real_estate.group_user_chiakhach" &ndash;&gt;-->
+<!--&lt;!&ndash;	               							class="btn btn-primary share" title="Chia sẻ" data-model="estate.demand" >&ndash;&gt;-->
+<!--&lt;!&ndash;	               							<i class="fa fa-share-alt"></i></a>&ndash;&gt;-->
+<!--&lt;!&ndash;	               			&ndash;&gt;-->
+<!--&lt;!&ndash;	               			&ndash;&gt;-->
+<!--&lt;!&ndash;								<a class="btn btn-primary" target='new' title='Download template' href='/real_estate/static/src/template/Demand_import.xlsx'>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-download"></i></a> &ndash;&gt;-->
+<!--&lt;!&ndash;								<a class="btn btn-primary" target='new' title='Import file' href='/web#model=estate.demand.data.import&amp;action=import'>&ndash;&gt;-->
+<!--&lt;!&ndash;									<i class="fa fa-upload"></i>&ndash;&gt;-->
+<!--&lt;!&ndash;									</a>&ndash;&gt;-->
+
+<!--	               			</div>-->
+                   <div style="text-align: right; margin-right: 265px;">
+                        <button string=" Search" name="action_search_real_estate" type="object" class="oe_highlight"
+                        style="padding: 8px 18px; font-size: 15px; position: relative; z-index: 1050;margin-top: -20px;">
+                        <i class="fa fa-search" aria-hidden="true" style="margin-right: 5px"></i>
+                        </button>
+                        <button string="Danh sách yêu thích" name="toggle_favorite_field" type="object" class="btn-primary" style="padding: 8px 18px; font-size: 15px; position: relative; z-index: 1050;margin-top: -20px;">
+                        <i class="fa fa-heart" aria-hidden="true" style="margin-right: 5px"></i>
+                        </button>
+                        <field name="show_favorite" invisible="1"/>
+                        <field name="favorite_id" attrs="{'invisible': [('show_favorite', '=', False)]}" options="{'no_create': True, 'no_open': True}"/>
+                   </div>
+
+                    <notebook>
+                        <page string="Nhà đất">
+                           <button name="action_pager_next" type="object"
+                                class="fa fa-chevron-right my-pager-next-btn"
+                                attrs="{'invisible': [('id', '!=', False)]}"/>
+
+
+                           <field name="real_estate_ids" widget="one2many_selectable" style="max-width: 100%; overflow-x: auto;" context="{'form_view_initial_mode': 'edit'}">
+<!--                                    <kanban class="o_kanban_mobile" >-->
+<!--                                     <field name="street_id"/>-->
+<!--                                    <field name="address_ward_district_show"/>-->
+<!--                                        <field name="image_avatar" widget="image" class="oe_avatar"/>-->
+<!--                                    <templates>-->
+<!--                                        <t t-name="kanban-box">-->
+<!--                                            <div t-attf-class="oe_kanban_card oe_kanban_global_click " style="width: 370px !important; height: 235px !important;">-->
+<!--                                                &lt;!&ndash; Display Image Avatar &ndash;&gt;-->
+<!--                                                <div class="col-auto">-->
+<!--                                                    <img t-att-src="kanban_image('model_name', 'image_avatar', record.id)"-->
+<!--                                                         class="oe_avatar"-->
+<!--                                                         style="max-width: 50px; height: auto;" />-->
+<!--                                                </div>-->
+<!--                                                &lt;!&ndash; Display Address Information &ndash;&gt;-->
+<!--                                                <div class="col">-->
+<!--                                                    <strong t-esc="record.street_id.value" style="font-size: 17pt;" />-->
+<!--                                                    <br />-->
+<!--                                                    <strong-->
+<!--                                                            t-esc="record.address_ward_district_show.value"-->
+<!--                                                            class="float-right text-right" style="font-size: 17pt;"/>-->
+<!--                                                </div>-->
+
+<!--                                            </div>-->
+<!--                                        </t>-->
+<!--                                    </templates>-->
+<!--                                </kanban>-->
+                                <tree delete="1" style="table-layout: fixed;">
+                                <field name="image_avatar_html" widget="html" width="50"/>
+                                <field name="date_show" widget="html" width="100"/>
+                                <field name="code_demand_secondary_show" widget="html" width="120"/>
+                                <field name="is_visiter" invisible="1"/>
+                                <field name="type_style_direction_show" widget="html" width="100"/>
+                                <field name="number_house" attrs="{'invisible': [('is_visiter', '=', True)]}" width="80"/>
+                                <field name="street_id" attrs="{'invisible': [('is_visiter', '=', True)]}" width="120"/>
+                                <field name="address_ward_district_show" attrs="{'invisible': [('is_visiter', '=', True)]}" width="150"/>
+                                <field name="horizontal_length_use_area_show" widget="html" width="100"/>
+                                <field name="total_price" width="100"/>
+                                <field name="structure_ids" widget="many2many_tags" width="120"/>
+                                <field name="note" width="150"/>
+                                <field name="deposit" width="80"/>
+                                <field name="paid" width="80"/>
+                                <field name="fee" width="80"/>
+                                <button string="!" name="action_show_advertising_sample" type="object" class="oe_highlight" style="min-width:30px; min-height:30px;"/>
+                                <button name="action_update_date_entry" type="object" icon="fa-refresh" class="oe_highlight"/>
+                                <button string=" " name="action_detail_contact_view" type="object" icon="fa-phone" class="oe_highlight" style="min-width:30px; min-height:30px;"/>
+                                <button string=" " name="action_greeting_customer_estate_views" type="object" icon="fa-users" class="oe_highlight" style="min-width:30px; min-height:30px;"/>
+                            </tree>
+                           </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_real_estate_search" model="ir.actions.act_window">
+            <field name="name">Tìm kiếm nhà đất</field>
+            <field name="res_model">real.estate.search</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="real_estate_search_view_form"/>
+            <field name="target">inline</field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="offering_history_tree_view" model="ir.ui.view">
+            <field name="name">offering.history.tree.view</field>
+            <field name="model">offering.history</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="partner_id"/>
+                    <field name="customer_id"/>
+                    <field name="demand_id"/>
+                    <field name="search_demand_id" />
+                    <field name="date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="offering_history_form_view" model="ir.ui.view">
+            <field name="name">offering.history.form.view</field>
+            <field name="model">offering.history</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <header>
+                        <field name="state" widget="statusbar" statusbar_visible="draft,new,done"/>
+                   </header>
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="offering_id" inivible="1"/>
+                                <field name="partner_id"/>
+                                <field name="customer_id"/>
+                                <field name="demand_id"/>
+                            </group>
+                            <group>
+                                <field name="search_demand_id" />
+                                <field name="date"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+
+
+        <record id="offering_history_action" model="ir.actions.act_window">
+            <field name="name">Lịch sử chào khách</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">offering.history</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

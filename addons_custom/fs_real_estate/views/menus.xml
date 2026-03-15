@@ -1,0 +1,256 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <menuitem id="menu_real_estate_root"
+                  name="Bất động sản"
+                  sequence="20"
+                  web_icon="fs_real_estate,static/description/icon.png"
+        />
+
+        <menuitem id="menu_dashboard_sub_root"
+                  name="Dash Board"
+                  parent="menu_real_estate_root"
+                  sequence="1"
+        />
+
+        <menuitem id="menu_offering_estate_sub"
+                  name="Dắt khách"
+                  parent="menu_dashboard_sub_root"
+                  action="offering_history_action"
+                  sequence="1"
+        />
+
+        <menuitem id="menu_real_estate_action_sub"
+                  name="Nhà đất"
+                  parent="menu_dashboard_sub_root"
+                  action="real_estate_action"
+                  sequence="10"
+        />
+
+        <menuitem id="menu_real_estate_sub_root"
+                  name="Nhà đất"
+                  parent="menu_real_estate_root"
+                  sequence="10"
+        />
+
+        
+
+        <menuitem id="menu_action_real_estate_search_sub"
+                  name="Tìm kiếm nhà đất"
+                  parent="menu_real_estate_sub_root"
+                  action="action_real_estate_search"
+                  sequence="2"
+        />
+
+        <menuitem id="menu_action_real_estate_search_expired_sub"
+                  name="Tìm kiếm nhà đất hết hạn"
+                  parent="menu_real_estate_sub_root"
+                  action="action_real_estate_search_expired"
+                  sequence="3"
+        />
+        <menuitem id="menu_action_search_demand_estate_customer_view_form_sub"
+                  name="Tìm kiếm nhu cầu khách hàng"
+                  parent="menu_real_estate_sub_root"
+                  action="action_search_demand_estate_customer_view_form"
+                  sequence="4"
+        />
+
+
+        <menuitem id="menu_action_create_real_estate_view_form_sub"
+                  name="Tạo mới nhà đất"
+                  parent="menu_real_estate_sub_root"
+                  action="action_create_real_estate"
+                  sequence="5"
+                  groups="fs_real_estate.group_real_estate_employee"
+        />
+
+
+
+
+        <menuitem id="menu_partner_sub_root"
+                  name="Khách hàng"
+                  parent="menu_real_estate_root"
+                  sequence="80"
+        />
+
+        <menuitem id="menu_res_partner_action_sub"
+                  name="Liên hệ"
+                  parent="menu_partner_sub_root"
+                  action="fs_contacts.res_partner_action"
+                  sequence="1"
+        />
+        <menuitem id="menu_action_create_res_partner_sub"
+                  name="Tạo mới liên hệ"
+                  parent="menu_partner_sub_root"
+                  action="action_create_res_partner"
+                  sequence="2"
+                  groups="fs_real_estate.group_real_estate_employee"
+        />
+
+        <menuitem id="menu_real_estate_config_sub"
+                  name="Cấu hình"
+                  parent="menu_real_estate_root"
+                  sequence="100"
+                  groups="fs_real_estate.group_real_estate_employee"
+        />
+
+        <menuitem id="real_estate_config_settings_menu"
+                  name="Thiết lập"
+                  parent="menu_real_estate_config_sub"
+                  sequence="0"
+                  action="real_estate_config_settings_action"
+                 />
+
+        <menuitem id="menu_real_estate_master_address_config_sub"
+                  name="Địa chỉ"
+                  parent="menu_real_estate_config_sub"
+                  sequence="5"
+        />
+
+        <menuitem id="menu_real_estate_master_estate_sub"
+                  name="Dữ liệu nhà đất"
+                  parent="menu_real_estate_config_sub"
+                  sequence="1"
+        />
+
+        <menuitem id="menu_res_street_action_sub"
+                  name="Đường"
+                  parent="menu_real_estate_master_address_config_sub"
+                  action="fs_contacts.res_street_action"
+                  sequence="1"
+        />
+
+        <menuitem id="menu_res_ward_action_sub"
+                  name="Phường"
+                  parent="menu_real_estate_master_address_config_sub"
+                  action="fs_contacts.res_ward_action"
+                  sequence="2"
+        />
+
+        <menuitem id="menu_res_district_action_sub"
+                  name="Quận/Huyện"
+                  parent="menu_real_estate_master_address_config_sub"
+                  action="fs_contacts.res_district_action"
+                  sequence="3"
+        />
+
+        <menuitem id="menu_res_city_action_sub"
+                  name="Thành phố"
+                  parent="menu_real_estate_master_address_config_sub"
+                  action="fs_contacts.res_city_action"
+                  sequence="4"
+        />
+        <menuitem id="menu_action_update_address_form_sub"
+                  name="Cập nhật địa chỉ"
+                  parent="menu_real_estate_master_address_config_sub"
+                  action="action_update_address_form"
+                  sequence="5"
+        />
+
+        <menuitem id="menu_type_demand_action_sub"
+                  name="Nhu cầu"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="type_demand_action"
+                  sequence="1"
+        />
+
+        <menuitem id="menu_secondary_form_action_sub"
+                  name="Hình thức phụ"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="secondary_form_action"
+                  sequence="2"
+        />
+
+        <menuitem id="menu_job_profession_action_sub"
+                  name="Ngành nghề"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="fs_contacts.job_profession_action"
+                  sequence="3"
+        />
+
+        <menuitem id="menu_estate_direction_action_sub"
+                  name="Hướng"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="estate_direction_action"
+                  sequence="4"
+        />
+
+        <menuitem id="menu_estate_stair_action_action_sub"
+                  name="Cầu thang"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="estate_stair_action"
+                  sequence="5"
+        />
+
+        <menuitem id="menu_estate_style_action_action_sub"
+                  name="Kiểu"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="estate_style_action"
+                  sequence="6"
+        />
+
+        <menuitem id="menu_group_style_action_action_sub"
+                  name="Nhóm Kiểu"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="group_style_action"
+                  sequence="7"
+        />
+
+        <menuitem id="menu_estate_structure_action_action_sub"
+                  name="Cấu trúc"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="estate_structure_action"
+                  sequence="8"
+        />
+
+        <menuitem id="menu_act_view_currency_rates_sub"
+                  name="Tiền tệ"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="base.action_currency_form"
+                  sequence="9"
+        />
+
+        <menuitem id="menu_role_detail_action_sub"
+                  name="Vai trò"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="role_detail_action"
+                  sequence="9"
+        />
+
+        <menuitem id="menu_group_direction_action_sub"
+                  name="Nhóm hướng"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="group_direction_action"
+                  sequence="10"
+        />
+
+        <menuitem id="menu_gestate_category_action_sub"
+                  name="Định danh nhóm"
+                  parent="menu_real_estate_master_estate_sub"
+                  action="estate_category_action"
+                  sequence="20"
+        />
+
+        <menuitem
+        id="real_estate_prices_config_menu"
+        name="Giá nhà đất"
+        action="real_estate_prices_config_action"
+        groups="fs_real_estate.group_real_estate_import_data,fs_real_estate.group_real_estate_admin"
+        parent="fs_real_estate.menu_real_estate_master_estate_sub"
+        sequence="11"/>
+
+        <menuitem
+        id="real_estate_advertising_template_menu"
+        name="Template AD"
+        action="real_estate_advertising_template_action"
+        groups="fs_real_estate.group_real_estate_import_data,fs_real_estate.group_real_estate_admin"
+        parent="fs_real_estate.menu_real_estate_config_sub"
+        sequence="10"/>
+
+        <record id="base.menu_administration" model="ir.ui.menu">
+            <field name="parent_id" ref="fs_real_estate.menu_real_estate_root"/>
+            <field name="groups_id" eval="[(6, 0,[ref('fs_real_estate.group_real_estate_admin')])]"/>
+        </record>
+
+    </data>
+</odoo>

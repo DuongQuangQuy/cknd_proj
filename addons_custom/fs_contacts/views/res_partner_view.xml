@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <record id="view_partner_tree_inherit_view" model="ir.ui.view">
+            <field name="name">res.partner.tree.inherit.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='company_id']" position="after">
+		            <field name="parent_id" string="Thành viên của"/>
+                    <field name="child_ids" string="Thành viên con" widget="many2many_tags"/>
+                    <field name="type_contact" />
+                    <field name="note" string="Ghi chú"/>
+                </xpath>
+                <xpath expr="//field[@name='display_name']" position="before">
+		            <field name="code"/>
+                </xpath>
+                <xpath expr="//field[@name='display_name']" position="after">
+		            <field name="job_profession_id"/>
+                    <field name="function" string="Vị trí công việc"/>
+                </xpath>
+                <xpath expr="//field[@name='email']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='user_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='city']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='country_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='phone']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="res_partner_view_tree_inherit_mail_inherit_view" model="ir.ui.view">
+            <field name="name">res.partner.tree.mail.inherit.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="mail.res_partner_view_tree_inherit_mail"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='activity_ids']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="res_partner_form_inherit_view" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='name']" position="before">
+                    <label for="code"/>
+                    <div>
+                        <field name="code"/>
+                    </div>
+                </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/field[@name='vat']" position="after">
+                    <field name="date_entry" />
+                    <field name="date_updated" />
+                    <field name="create_uid" />
+                    <field name="user_update_id" />
+                    <field name="parent_id" string="Thành viên của"/>
+                    <field name="function" string="Vị trí công việc"/>
+                    <field name="source_customer_partner_ids" widget="many2many_tags"/>
+                    <field name="name_company" />
+                    <field name="customer_care" />
+                    <field name="evaluate" />
+                    <span class="o_form_label o_td_label" name="address_name">
+                        <b>Địa chỉ</b>
+                    </span>
+                    <div class="o_address_format">
+                        <field name="city_id"  required="0" placeholder="Thành phố" options="{'no_open': True,'no_create_edit': True, 'no_create': True }"/>
+                        <field name="district_id"  required="0"
+                                 options="{'no_open': True,'no_create_edit': True, 'no_create': True }"
+                                 domain="[('city_id', '=', city_id)]" placeholder="Quận"/>
+                        <field name="ward_id"  required="0"
+                            options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"
+                                         domain="[('district_id', '=', district_id )]" placeholder="Phường" />
+
+
+                        <div style="display: flex; width: 100%;" colspan="1">
+                            <div style="width: 30%; padding-right: 2px;">
+                                <field name="number_house" placeholder="Số nhà" nolabel="1"/>
+                            </div>
+                            <div style="width: 70%; padding-left: 2px;">
+                                <field name="street_id" required="0"
+                                       options="{'no_open': True, 'no_create_edit': True, 'no_create': True}"
+                                       class="street_select" placeholder="Chọn Đường" nolabel="1"/>
+                            </div>
+                        </div>
+                    </div>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/div[hasclass('o_address_format')]" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                </xpath>
+
+
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[1]/span[@name='address_name']" position="attributes">
+                      <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='website']" position="after">
+                    <field name="mobile" string="Di động" widget="phone"/>
+                    <field name="mobile_2" widget="phone"/>
+                    <field name="mobile_3" widget="phone"/>
+                    <field name="mobile_4" widget="phone"/>
+                </xpath>
+                <xpath expr="//field[@name='mobile']" position="attributes">
+                    <attribute name="string">Di động</attribute>
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                 <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='function']" position="before">
+<!--                    <field name="mobile" widget="phone"/>-->
+                    <field name="type_contact" />
+                    <field name="job_profession_id"/>
+                </xpath>
+                <xpath expr="//form[1]/sheet[1]/group[1]" position="after">
+                    <group string="Ghi chú nội bộ"/>
+                    <field name="note"/>
+                </xpath>
+
+                <xpath expr="//page[@name='contact_addresses']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='sales_purchases']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//page[@name='internal_notes']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="res_partner_view_form_inherit_view" model="ir.ui.view">
+            <field name="name">res.partner.form.inherit.view</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="sms.res_partner_view_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//label[@for='mobile']" position="attributes">
+		            <attribute name="invisible">1</attribute>
+                </xpath>
+            </field>
+        </record>
+
+    <record id="view_partner_property_form_inherit_view" model="ir.ui.view">
+        <field name="name">res.partner.property.form.inherit.view</field>
+        <field name="model">res.partner</field>
+        <field name="inherit_id" ref="account.view_partner_property_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='accounting']" position="attributes">
+                  <attribute name="invisible">1</attribute>
+            </xpath>
+        </field>
+    </record>
+
+<!--    <record id="fs_contacts_view_res_partner_view_form_inherit_mail" model="ir.ui.view">-->
+<!--        <field name="name">res.partner.view.form.inherit.mail.inherit.view</field>-->
+<!--        <field name="model">res.partner</field>-->
+<!--        <field name="inherit_id" ref="mail.res_partner_view_form_inherit_mail"/>-->
+<!--        <field name="arch" type="xml">-->
+<!--            <xpath expr="//div[hasclass('oe_chatter')]" position="attributes">-->
+<!--                  <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//page[@name='message_follower_ids']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//page[@name='activity_ids']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+<!--            <xpath expr="//page[@name='message_ids']" position="attributes">-->
+<!--                <attribute name="invisible">1</attribute>-->
+<!--            </xpath>-->
+<!--        </field>-->
+<!--    </record>-->
+
+
+
+
+    <record id="res_partner_action" model="ir.actions.act_window">
+            <field name="name">Liên hệ</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+</odoo>

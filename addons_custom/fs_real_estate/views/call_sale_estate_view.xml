@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="call_sale_estate_tree_view" model="ir.ui.view">
+            <field name="name">call.sale.estate.tree.view</field>
+            <field name="model">call.sale.estate</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="user_id"/>
+                    <field name="company_id"/>
+                    <field name="search_demand_id"/>
+                    <field name="partner_id"/>
+                    <field name="note"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="call_sale_estate_view_form" model="ir.ui.view">
+            <field name="name">call.sale.estate.view.form</field>
+            <field name="model">call.sale.estate</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="partner_id"/>
+                            </group>
+                            <group>
+                                <field name="company_id"/>
+                                <field name="search_demand_id" invisible="1"/>
+                            </group>
+                        </group>
+                        <div>
+                            <label for="note"  />
+                            <field name="note" placeholder="Khách có ý kiến.."/>
+                        </div>
+                    </sheet>
+                    <footer>
+                        <div class="oe_right">
+                            <button type="object" name="action_call" string="Đã gọi" class="oe_highlight"/>
+                            <button name="cancel" special="cancel" string="Close" class="oe_link" />
+                        </div>
+                    </footer>
+                </form>
+            </field>
+        </record>
+
+        <record id="call_sale_estate_action" model="ir.actions.act_window">
+            <field name="name">Gọi khách hàng</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">call.sale.estate</field>
+            <field name="view_mode">form</field>
+        </record>
+
+
+    </data>
+</odoo>

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="search_demand_estate_customer_view_form" model="ir.ui.view">
+            <field name="name">search.demand.estate.customer.view.form</field>
+            <field name="model">search.demand.estate.customer</field>
+            <field name="arch" type="xml">
+                <form string="" class="o_estate_search_form_view">
+<!--                    <header>-->
+<!--                        -->
+<!--                    </header>-->
+                    <sheet >
+                        <group>
+                            <group string="Liên hệ">
+                                <field name="code"/>
+                                <field name="contact"/>
+                                <field name="note"/>
+                            </group>
+                            <group string="Diện tích - Giá cả">
+                                <table>
+	                				<tr>
+	                					<th>#</th><th>Từ</th><th>Tới</th><th>#</th><th>Từ</th><th>Tới</th>
+	                				</tr>
+	                				<tr>
+	                					<th>Ngang:</th><td><field name="horizontal_from"/></td><td><field name="horizontal_to"/></td>
+	                					<th>Dài: </th><td><field name="length_from"/></td><td><field name="length_to"/></td>
+	                				</tr>
+	                				<tr>
+	                					<th>DTKV: </th><td><field name="acreage_area_from"/></td><td><field name="acreage_area_to"/></td>
+	                					<th>DTSD: </th><td><field name="acreage_use_from"/></td><td><field name="acreage_use_to"/></td>
+	                				</tr>
+	                				<tr>
+	                					<th>Giá: </th>
+	                					<td><field name="total_price_from"/></td>
+	                					<td><field name="total_price_to"/></td>
+
+<!--	                					<th><label for="currency_id" invisible="1"></label></th>-->
+<!--	                					<td colspan="2">-->
+<!--	                						<field name='currency_id'  invisible="1" required="1" options="{'no_create': True, 'no_open': True}" />-->
+<!--               							</td>-->
+	                				</tr>
+	                			</table>
+
+                            </group>
+                        </group>
+                        <group>
+                            <group>
+                                <table style="width:90% !important;">
+	                				<tr>
+	                					<th>#</th><th>Từ</th><th>Tới</th>
+	                				</tr>
+	                				<tr>
+	                					<th>Ngày nhập:</th><td><field name="date_entry_from"/></td><td><field name="date_entry_to"/></td>
+	                				</tr>
+                                    <tr>
+	                					<th>Ngày hết hạn HĐ: </th><td><field name="date_contract_exp_from"/></td><td><field name="date_contract_exp_to"/></td>
+	                				</tr>
+                                    <tr>
+	                					<th>Ngày cập nhật: </th><td><field name="date_updated_from"/></td><td><field name="date_updated_to"/></td>
+	                				</tr>
+	                			</table>
+                            </group>
+                            <group>
+                                <br/>
+                                <field name="user_id"/>
+                                <field name="evaluate"/>
+                            </group>
+                        </group>
+                        <group>
+                            <group string="Vị trí">
+                                <field name="city_ids"  widget="many2many_tags"  options="{'no_open': True,'no_create_edit': True, 'no_create': True }"/>
+                                <field name="district_ids" widget="many2many_tags"
+                                         options="{'no_open': True,'no_create_edit': True, 'no_create': True }"
+                                         domain="[('city_id', '=', city_ids)]" />
+                                <field name="ward_ids" widget="many2many_tags"
+                                    options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"
+                                     domain="[('district_id', '=', district_ids )]" />
+
+                                <label for="street_ids"/>
+                                <div colspan="1" style="display: flex; width: 98%;">
+                                    <div style="flex: 0 0 20%; margin-right: 10px;">
+                                        <field name="number_house" placeholder="Số nhà" nolabel="1" style="width: 100%;"/>
+                                    </div>
+                                    <div style="flex: 0 0 80%;">
+                                        <field name="street_ids" widget="many2many_tags"
+                                            options="{'no_open': True, 'no_create_edit': True, 'no_create': True}"
+                                            class="street_select" placeholder="Chọn Đường" nolabel="1" style="width: 100%;"/>
+                                    </div>
+                                </div>
+                                <field name="group_direction_id" />
+                                <field name="way_ids" widget="many2many_tags"/>
+                            </group>
+                            <group string="Cấu trúc">
+                                <field name="type_estate_ids" widget="many2many_tags"/>
+                                <field name="group_style_id" />
+                                <field name="style_ids" widget="many2many_tags"/>
+                                <field name="type_demand_ids" widget="many2many_tags"/>
+                                <field name="secondary_form_ids" widget="many2many_tags"/>
+                                <field name="structure_ids" widget="many2many_tags"/>
+                                <field name="job_profession_ids" widget="many2many_tags"/>
+                            </group>
+                        </group>
+                    </sheet>
+                   <div style="text-align: right;  margin-right: 265px;">
+                        <button string=" Search" name="action_search_real_estate" type="object" class="oe_highlight"
+                                style="padding: 8px 18px; font-size: 15px;">
+                            <i class="fa fa-search" aria-hidden="true" style="margin-right: 5px;"></i>
+                        </button>
+                   </div>
+                    <notebook>
+                        <page string="Nhu cầu">
+                            <field name="demand_estate_search_ids" readonly="1">
+                                <tree>
+                                    <field name="date_show" widget="html"/>
+                                    <field name="name"/>
+                                    <field name="partner_id"/>
+                                    <field name="dimension_info_show" widget="html"/>
+                                    <field name="street_ids" widget="many2many_tags"/>
+                                    <field name="ward_ids" widget="many2many_tags"/>
+                                    <field name="district_ids" widget="many2many_tags"/>
+                                    <field name="city_ids" widget="many2many_tags"/>
+
+                                    <button type="object" name="view_estate_greeted" string=" " class="oe_highlight" icon="fa-info"/>
+                                    <button type="object" name="action_call" string=" " class="oe_highlight" icon="fa-phone"/>
+                                    <field name="state"/>
+                                    <field name="user_id" />
+
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
+                </form>
+            </field>
+        </record>
+
+        <record id="action_search_demand_estate_customer_view_form" model="ir.actions.act_window">
+            <field name="name">Tìm kiếm nhu cầu khách hàng</field>
+            <field name="res_model">search.demand.estate.customer</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="search_demand_estate_customer_view_form"/>
+            <field name="target">inline</field>
+        </record>
+
+    </data>
+</odoo>

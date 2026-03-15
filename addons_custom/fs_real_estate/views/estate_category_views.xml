@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="estate_category_tree_view" model="ir.ui.view">
+            <field name="name">estate.category.tree.view</field>
+            <field name="model">estate.category</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="style_ids" widget="many2many_tags"/>
+                    <field name="direction_ids" widget="many2many_tags"/>
+                    <field name="ward_ids" widget="many2many_tags"/>
+                    <field name="district_ids" widget="many2many_tags"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="estate_category_view_form" model="ir.ui.view">
+            <field name="name">estate.category.view.form</field>
+            <field name="model">estate.category</field>
+            <field name="arch" type="xml">
+                <form string="">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="style_ids" widget="many2many_tags"/>
+                            <field name="direction_ids" widget="many2many_tags"/>
+                            <field name="ward_ids" widget="many2many_tags"/>
+                            <field name="district_ids" widget="many2many_tags"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="estate_category_action" model="ir.actions.act_window">
+            <field name="name">Định danh nhóm</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">estate.category</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+    </data>
+</odoo>

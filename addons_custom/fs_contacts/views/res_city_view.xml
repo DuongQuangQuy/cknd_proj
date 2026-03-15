@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+        <record id="res_city_tree_inherit_view" model="ir.ui.view">
+            <field name="name">res.city.tree.inherit.view</field>
+            <field name="model">res.city</field>
+            <field name="inherit_id" ref="base_address_city.view_city_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='zipcode']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//tree" position="attributes">
+                    <attribute name="editable"></attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='country_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+                <xpath expr="//field[@name='state_id']" position="attributes">
+                    <attribute name="invisible">1</attribute>
+                </xpath>
+
+                <xpath expr="//field[@name='name']" position="after">
+                    <field name="district_ids"  widget="many2many_tags"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="res_city_view_form" model="ir.ui.view">
+        <field name="name">res.city.view.form</field>
+        <field name="model">res.city</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Quận/Huyện">
+                            <field name="district_ids" nolabel="1" >
+                                    <tree editable="bottom">
+                                        <field name="name"/>
+                                        <field name="ward_ids" widget="many2many_tags"/>
+                                        <button name="add_ward" string="Thêm Phường" type="object" class="btn-secondary" />
+                                    </tree>
+                                </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id="res_city_action" model="ir.actions.act_window">
+            <field name="name">Thành phố</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.city</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+</odoo>

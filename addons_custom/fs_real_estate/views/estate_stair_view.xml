@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="estate_stair_tree_view" model="ir.ui.view">
+            <field name="name">estate.stair.tree.view</field>
+            <field name="model">estate.stair</field>
+            <field name="arch" type="xml">
+                <tree editable="bottom">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="estate_stair_action" model="ir.actions.act_window">
+            <field name="name">Cầu thang</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">estate.stair</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+    </data>
+</odoo>

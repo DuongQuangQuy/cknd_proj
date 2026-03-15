@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="res_ward_tree_view" model="ir.ui.view">
+            <field name="name">res.ward.tree.view</field>
+            <field name="model">res.ward</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <header>
+                         <button name="update_name" string="Cập nhật tên" type="object" />
+                    </header>
+                    <field name="name"/>
+                    <field name="district_id"/>
+                    <field name="city_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="res_ward_view_form" model="ir.ui.view">
+        <field name="name">res.ward.view.form</field>
+        <field name="model">res.ward</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="district_id"/>
+                    </group>
+                    <notebook>
+                        <page string="Đường">
+                            <group>
+                                <field name="street_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id="res_ward_action" model="ir.actions.act_window">
+            <field name="name">Phường</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.ward</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

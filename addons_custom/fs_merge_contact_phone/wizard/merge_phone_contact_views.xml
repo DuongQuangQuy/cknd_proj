@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+  <odoo>
+  
+    <record id="merge_phone_contact_wizard_view_form" model="ir.ui.view">
+        <field name="name">merge.phone.contact.wizard.view.form</field>
+        <field name="model">merge.phone.contact.wizard</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <header>
+                        <button string="Danh sách 10 số điện thoại trùng" name="action_partners_top10_duplicate_phone" type="object" class="oe_highlight"/>
+                    </header>
+                    <group>
+                        <field name="phone" nolabel="1" placeholder="Nhập số điện thoại cần tìm"/>
+                        <button string="Tìm kiếm" name="action_search_partner_by_phone" type="object" class="oe_highlight"/>
+                        <field name="partner_ids" invisible="1"/>
+                        <field name="partner_data" invisible="1"/>
+                    </group>
+                    <field name="preview_partner_data" widget="grouped_one2many_widget"/>
+                </sheet>
+                <footer>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="merge_phone_contact_wizard_action" model="ir.actions.act_window">
+        <field name="name">Tìm điện thoại trùng</field>
+        <field name="res_model">merge.phone.contact.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem
+        id="merge_phone_contact_menu"
+        name="Tìm điện thoại trùng"
+        action="merge_phone_contact_wizard_action"
+        parent="fs_real_estate.menu_partner_sub_root"
+        sequence="2"/>
+  
+  </odoo>
+  

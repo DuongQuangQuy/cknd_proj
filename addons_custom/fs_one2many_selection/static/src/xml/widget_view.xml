@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="One2ManySelectable">
+		<div>
+			<!-- Buttons for one2many selection when using widget="one2many_selectable" -->
+			<t t-if="!widget.get('effective_readonly')">
+				<button style="margin-bottom: 1%;display:none;" class="button_delete_lines btn btn-primary oe_highlight"
+						href="javascript:void(0)">
+					 <i class="fa fa-trash" aria-hidden="true"></i>
+				</button>
+				<button style="margin-bottom: 1%;margin-left: 5px;display:none;" class="button_favorite_lines btn btn-success oe_highlight"
+						href="javascript:void(0)">
+					 <i class="fa fa-heart" aria-hidden="true"></i>
+				</button>
+			</t>
+			<t t-if="widget.get('effective_readonly')">
+				<span class="oe_form_char_content"></span>
+			</t>
+		</div>
+    </t>
+
+</templates>

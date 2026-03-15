@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <data noupdate="0">
+
+        <record model="ir.module.category" id="category_real_estate_root">
+            <field name="name">Nhà đất</field>
+            <field name="sequence">15</field>
+        </record>
+    
+        <record id="category_real_estate" model="ir.module.category">
+            <field name="name">Nhà đất</field>
+            <field name="parent_id" ref="fs_real_estate.category_real_estate_root"/>
+        </record>
+
+        <record id="group_real_estate_vister" model="res.groups">
+            <field name="name">Vister - Cộng tác viên</field>
+            <field name="category_id" ref="fs_real_estate.category_real_estate"/>
+            <field name="users" eval="[(4, ref('base.user_root'))]"/>
+        </record>
+
+        <record id="group_real_estate_employee" model="res.groups">
+            <field name="name">Nhân viên</field>
+            <field name="category_id" ref="fs_real_estate.category_real_estate"/>
+            <field name="implied_ids" eval="[(4, ref('fs_real_estate.group_real_estate_vister'))]"/>
+        </record>
+
+        <record id="group_real_estate_manager" model="res.groups">
+            <field name="name">Quản lý</field>
+            <field name="category_id" ref="fs_real_estate.category_real_estate"/>
+            <field name="implied_ids" eval="[(4, ref('fs_real_estate.group_real_estate_employee'))]"/>
+        </record>
+
+        <record id="group_real_estate_company" model="res.groups">
+            <field name="name">Công ty - Nhóm</field>
+            <field name="category_id" ref="fs_real_estate.category_real_estate"/>
+            <field name="implied_ids" eval="[(4, ref('fs_real_estate.group_real_estate_manager'))]"/>
+        </record>
+
+        <record id="group_real_estate_admin" model="res.groups">
+            <field name="name">Admin</field>
+            <field name="category_id" ref="fs_real_estate.category_real_estate"/>
+            <field name="implied_ids" eval="[(4, ref('fs_real_estate.group_real_estate_company'))]"/>
+            <field name="users" eval="[(4, ref('base.user_admin'))]"/>
+        </record>
+
+        <record id="group_real_estate_import_data" model="res.groups">
+            <field name="name">Nhập dữ liệu</field>
+        </record>
+    
+    </data>
+    
+
+</odoo>

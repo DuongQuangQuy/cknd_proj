@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="res_street_tree_view" model="ir.ui.view">
+            <field name="name">res.street.tree.view</field>
+            <field name="model">res.street</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="res_street_view_form" model="ir.ui.view">
+        <field name="name">res.street.view.form</field>
+        <field name="model">res.street</field>
+        <field name="arch" type="xml">
+            <form string="">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                    </group>
+                    <notebook>
+                        <page string="Đi qua">
+                            <group>
+                                <field name="ward_ids" widget="many2many_tags"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+        <record id="res_street_action" model="ir.actions.act_window">
+            <field name="name">Đường</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.street</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+    </data>
+</odoo>

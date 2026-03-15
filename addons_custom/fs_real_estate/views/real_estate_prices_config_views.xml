@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="real_estate_prices_config_view_tree" model="ir.ui.view">
+        <field name="name">real.estate.prices.config.view.tree</field>
+        <field name="model">real.estate.prices.config</field>
+        <field name="arch" type="xml">
+            <tree editable="bottom">
+                <field name="group_id" width="600px"/>
+                <field name="price_from" width="200px"/>
+                <field name="price_to" width="200px"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="real_estate_prices_config_action" model="ir.actions.act_window">
+        <field name="name">Giá nhà đất</field>
+        <field name="res_model">real.estate.prices.config</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+</odoo>

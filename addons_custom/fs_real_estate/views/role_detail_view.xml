@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="role_detail_tree_view" model="ir.ui.view">
+            <field name="name">role.detail.tree.view</field>
+            <field name="model">role.detail</field>
+            <field name="arch" type="xml">
+                <tree >
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="role_detail_action" model="ir.actions.act_window">
+            <field name="name">Vai trò</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">role.detail</field>
+            <field name="view_mode">tree</field>
+        </record>
+
+    </data>
+</odoo>
