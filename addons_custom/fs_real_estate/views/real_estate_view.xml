@@ -55,6 +55,7 @@
                             <field name="is_expired" invisible="1"/>
                         </group>
                         <group >
+                        <button string="Chia sẽ" name="action_show_advertising_sample" type="object" class="oe_highlight" style="min-width:30px; min-height:30px;"/>
                             <field name="type_demand_id" style="width: 90px !important; min-width: 90px !important;" required="1"/>
                             <field name="secondary_form_id" required="1"/>
                             <field name="date_receive"/>

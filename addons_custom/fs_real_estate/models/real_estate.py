@@ -170,20 +170,21 @@ class RealEstate(models.Model):
             else:
                 # Load default image from static folder if no attachments are found
                 record.image_avatar = record._get_default_avatar()
-
+    
+    @api.depends('attachment_ids')
     def _compute_image_avatar_html(self):
         for record in self:
-            # Check if there are attachments, use the first one if available
             if record.attachment_ids:
-                image_data = record.attachment_ids[0].datas
+                attachment = record.attachment_ids[0]
+                record.image_avatar_html = (
+                    f'<img src="/web/image/{attachment.id}" '
+                    f'style="max-width:100px;max-height:100px;object-fit:cover;"/>'
+                )
             else:
-                # Load default image from static folder if no attachments are found
-                image_data = record._get_default_avatar()
-
-            if image_data:
-                record.image_avatar_html = f'<img src="data:image/png;base64,{image_data.decode("utf-8")}" style="max-width: 100px; max-height: 100px;"/>'
-            else:
-                record.image_avatar_html = ''
+                record.image_avatar_html = (
+                    '<img src="/web/static/img/placeholder.png" '
+                    'style="max-width:100px;max-height:100px;"/>'
+                )
 
     def _get_default_avatar(self):
         """Helper method to load a default image from static files"""
