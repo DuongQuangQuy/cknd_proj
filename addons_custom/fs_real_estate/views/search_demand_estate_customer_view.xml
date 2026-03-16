@@ -62,7 +62,7 @@
                             </group>
                             <group>
                                 <br/>
-                                <field name="user_id"/>
+                                <field name="user_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
                                 <field name="evaluate"/>
                             </group>
                         </group>
@@ -87,17 +87,17 @@
                                             class="street_select" placeholder="Chọn Đường" nolabel="1" style="width: 100%;"/>
                                     </div>
                                 </div>
-                                <field name="group_direction_id" />
-                                <field name="way_ids" widget="many2many_tags"/>
+                                <field name="group_direction_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                <field name="way_ids" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
                             </group>
                             <group string="Cấu trúc">
-                                <field name="type_estate_ids" widget="many2many_tags"/>
-                                <field name="group_style_id" />
-                                <field name="style_ids" widget="many2many_tags"/>
-                                <field name="type_demand_ids" widget="many2many_tags"/>
-                                <field name="secondary_form_ids" widget="many2many_tags"/>
-                                <field name="structure_ids" widget="many2many_tags"/>
-                                <field name="job_profession_ids" widget="many2many_tags"/>
+                                <field name="type_estate_ids" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
+                                <field name="group_style_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                <field name="style_ids" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
+                                <field name="type_demand_ids" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
+                                <field name="secondary_form_ids" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
+                                <field name="structure_ids" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
+                                <field name="job_profession_ids" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
                             </group>
                         </group>
                     </sheet>

@@ -118,6 +118,7 @@
                   parent="menu_real_estate_master_address_config_sub"
                   action="fs_contacts.res_street_action"
                   sequence="1"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_res_ward_action_sub"
@@ -125,6 +126,7 @@
                   parent="menu_real_estate_master_address_config_sub"
                   action="fs_contacts.res_ward_action"
                   sequence="2"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_res_district_action_sub"
@@ -132,6 +134,7 @@
                   parent="menu_real_estate_master_address_config_sub"
                   action="fs_contacts.res_district_action"
                   sequence="3"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_res_city_action_sub"
@@ -139,12 +142,14 @@
                   parent="menu_real_estate_master_address_config_sub"
                   action="fs_contacts.res_city_action"
                   sequence="4"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
         <menuitem id="menu_action_update_address_form_sub"
                   name="Cập nhật địa chỉ"
                   parent="menu_real_estate_master_address_config_sub"
                   action="action_update_address_form"
                   sequence="5"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_type_demand_action_sub"
@@ -152,6 +157,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="type_demand_action"
                   sequence="1"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_secondary_form_action_sub"
@@ -159,6 +165,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="secondary_form_action"
                   sequence="2"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_job_profession_action_sub"
@@ -166,6 +173,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="fs_contacts.job_profession_action"
                   sequence="3"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_estate_direction_action_sub"
@@ -173,6 +181,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="estate_direction_action"
                   sequence="4"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_estate_stair_action_action_sub"
@@ -180,6 +189,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="estate_stair_action"
                   sequence="5"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_estate_style_action_action_sub"
@@ -187,6 +197,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="estate_style_action"
                   sequence="6"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_group_style_action_action_sub"
@@ -194,6 +205,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="group_style_action"
                   sequence="7"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_estate_structure_action_action_sub"
@@ -201,6 +213,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="estate_structure_action"
                   sequence="8"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_act_view_currency_rates_sub"
@@ -215,6 +228,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="role_detail_action"
                   sequence="9"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_group_direction_action_sub"
@@ -222,6 +236,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="group_direction_action"
                   sequence="10"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem id="menu_gestate_category_action_sub"
@@ -229,6 +244,7 @@
                   parent="menu_real_estate_master_estate_sub"
                   action="estate_category_action"
                   sequence="20"
+                  groups="fs_real_estate.group_real_estate_manager"
         />
 
         <menuitem

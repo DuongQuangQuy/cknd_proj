@@ -62,7 +62,7 @@
                             </group>
                             <group>
                                 <br/>
-                                <field name="source_estate_partner_id"/>
+                                <field name="source_estate_partner_id"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
                                 <field name="source_image"/>
                             </group>
                         </group>
@@ -93,15 +93,15 @@
                                 <field name="type_number" />
                             </group>
                             <group string="Cấu trúc">
-                                <field name="category_ids" widget="many2many_tags"/>
-                                <field name="type_estate_ids" widget="many2many_tags"/>
+                                <field name="category_ids"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
+                                <field name="type_estate_ids"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags"/>
 <!--                                <field name="group_style_id" />-->
-                                <field name="style_ids" widget="many2many_tags"/>
-                                <field name="type_demand_ids" widget="many2many_tags"/>
-                                <field name="secondary_form_ids" widget="many2many_tags"/>
-                                <field name="structure_ids" widget="many2many_tags"/>
-                                <field name="job_profession_ids" widget="many2many_tags"/>
-                                <field name="direction_ids" widget="many2many_tags"/>
+                                <field name="style_ids" widget="many2many_tags"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                <field name="type_demand_ids" widget="many2many_tags"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                <field name="secondary_form_ids" widget="many2many_tags"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                <field name="structure_ids" widget="many2many_tags"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                <field name="job_profession_ids" widget="many2many_tags"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                <field name="direction_ids" widget="many2many_tags"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
 
                             </group>
                         </group>
