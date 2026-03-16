@@ -73,11 +73,11 @@
                         <page string="Thông tin - Địa chỉ" name="information_address">
                             <group>
                                 <group string="Địa chỉ">
-                                    <field name="city_id"  required="0"  options="{'no_open': True,'no_create_edit': True, 'no_create': True }" attrs="{'invisible': [('is_visiter', '=', True)]}"/>
+                                    <field name="city_id"  required="1"  options="{'no_open': True,'no_create_edit': True, 'no_create': True }" attrs="{'invisible': [('is_visiter', '=', True)]}"/>
                                     <field name="district_id"  required="0"
                                              options="{'no_open': True,'no_create_edit': True, 'no_create': True }"
                                              domain="[('city_id', '=', city_id)]" attrs="{'invisible': [('is_visiter', '=', True)]}"/>
-                                    <field name="ward_id"  required="0"
+                                    <field name="ward_id"  required="1"
                                         attrs="{'invisible': [('is_visiter', '=', True)]}"
                                         options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"
                                         domain="[('district_id', '=', district_id )]"/>
@@ -86,7 +86,7 @@
                                     <div colspan="1" attrs="{'invisible': [('is_visiter', '=', True)]}">
                                         <div><field name="number_house" placeholder="Số nhà"   nolabel="1"/></div>
                                         <div>
-                                            <field name="street_id"  required="0"
+                                            <field name="street_id"  required="1"
                                                 options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"
                                                  class="street_select" placeholder="Chọn Đường" nolabel="1"
                                                  />
@@ -122,16 +122,16 @@
                                 </group>
                                 <group string="Kết cấu">
                                     <field name="boundary_line" style="width: 110px !important; min-width: 110px !important;"/>
-                                    <field name="direction_id"/>
-                                    <field name="way_id"/>
-                                    <field name="stair_id"/>
+                                    <field name="direction_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                    <field name="way_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                    <field name="stair_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
                                     <field name="kitchen"/>
                                 </group>
                                 <group string="   ">
                                     <br/>
-                                    <field name="type_estate_id"/>
-                                    <field name="style_id"/>
-                                    <field name="structure_ids" widget="many2many_tags" style="width: 170px !important; min-width: 170px !important;"/>
+                                    <field name="type_estate_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                    <field name="style_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                    <field name="structure_ids" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags" style="width: 170px !important; min-width: 170px !important;"/>
                                     <field name="bathroom"/>
                                     <field name="is_elevator"/>
                                 </group>
