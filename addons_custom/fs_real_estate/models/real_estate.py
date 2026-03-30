@@ -141,7 +141,26 @@ class RealEstate(models.Model):
     image_avatar = fields.Binary(string='Ảnh')
     is_visiter = fields.Boolean(string='Là quyền cộng tác viên', compute='compute_is_visiter')
     old_id = fields.Integer(string='ID cũ')
-    image_avatar_html = fields.Html(string='Ảnh', compute='_compute_image_avatar_html', store=False)
+    image_avatar_html = fields.Html(string='Ảnh', store=True)
+    is_default = fields.Boolean(string='Default', default=True)
+
+    def update_image(self):
+        image_data = None
+        # Check if there are attachments, use the first one if available
+        if self.attachment_ids:
+            image_data = self.attachment_ids[0].datas
+        else:
+            # Load default image from static folder if no attachments are found
+            image_data = self._get_default_avatar()
+
+        if image_data:
+            # image_data is already a base64 string in Odoo, no need to decode
+            if isinstance(image_data, bytes):
+                image_data = image_data.decode('utf-8')
+            self.image_avatar_html = f'<img src="data:image/png;base64,{image_data}" style="max-width: 100px; max-height: 100px;"/>'
+        else:
+            self.image_avatar_html = ''
+        self.is_default= False
 
     def compute_is_visiter(self):
         for rec in self:
