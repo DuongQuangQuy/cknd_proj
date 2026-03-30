@@ -170,21 +170,25 @@ class RealEstate(models.Model):
             else:
                 # Load default image from static folder if no attachments are found
                 record.image_avatar = record._get_default_avatar()
-    
+
     @api.depends('attachment_ids')
     def _compute_image_avatar_html(self):
         for record in self:
+            image_data = None
+            # Check if there are attachments, use the first one if available
             if record.attachment_ids:
-                attachment = record.attachment_ids[0]
-                record.image_avatar_html = (
-                    f'<img src="/web/image/{attachment.id}" '
-                    f'style="max-width:100px;max-height:100px;object-fit:cover;"/>'
-                )
+                image_data = record.attachment_ids[0].datas
             else:
-                record.image_avatar_html = (
-                    '<img src="/web/static/img/placeholder.png" '
-                    'style="max-width:100px;max-height:100px;"/>'
-                )
+                # Load default image from static folder if no attachments are found
+                image_data = record._get_default_avatar()
+
+            if image_data:
+                # image_data is already a base64 string in Odoo, no need to decode
+                if isinstance(image_data, bytes):
+                    image_data = image_data.decode('utf-8')
+                record.image_avatar_html = f'<img src="data:image/png;base64,{image_data}" style="max-width: 100px; max-height: 100px;"/>'
+            else:
+                record.image_avatar_html = ''
 
     def _get_default_avatar(self):
         """Helper method to load a default image from static files"""
@@ -202,7 +206,7 @@ class RealEstate(models.Model):
            SELECT des.id
 
                 from demand_estate_search des
-                
+
                 LEFT join demand_estate_search_real_estate_rel desrer on desrer.demand_estate_search_id = des.id
                 LEFT join real_estate re on re.id = desrer.real_estate_id
             WHERE 1 = 1
@@ -412,7 +416,6 @@ class RealEstate(models.Model):
             if is_mt:
                 date_show += '<span style="font-weight: bold; color: blue;">Môi giới</span><br/>'
 
-
             # 5. Ngày cập nhật
             if rec.date_updated:
                 days_since_updated = (datetime.now().date() - rec.date_updated.date()).days
@@ -426,7 +429,7 @@ class RealEstate(models.Model):
     def get_info_mt(self):
         mt = self.role_line_ids.partner_id.mapped('type_contact')
         if 'agency' in mt:
-                return True
+            return True
         else:
             return False
 
