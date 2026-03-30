@@ -138,7 +138,7 @@ class RealEstate(models.Model):
     date_not_post = fields.Date(string='Ngày chưa đăng bài', default=fields.Date.context_today)
     is_expired = fields.Boolean(string='Đã hết hạn', default=False, compute='compute_is_expired')
 
-    image_avatar = fields.Binary(string='Ảnh', compute='_compute_image_avatar')
+    image_avatar = fields.Binary(string='Ảnh', compute='_compute_image_avatar', store=False)
     is_visiter = fields.Boolean(string='Là quyền cộng tác viên', compute='compute_is_visiter')
     old_id = fields.Integer(string='ID cũ')
     image_avatar_html = fields.Html(string='Ảnh', store=True)
