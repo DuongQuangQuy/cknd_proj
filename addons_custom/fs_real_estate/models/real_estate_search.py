@@ -10,7 +10,7 @@ class RealEstateSearch(models.Model):
     @api.model
     def default_get(self, fields):
         vals = super(RealEstateSearch, self).default_get(fields)
-        recent_estates = self.env['real.estate'].search([], limit=40)
+        recent_estates = self.env['real.estate'].search([], order='date_last_modified desc', limit=40)
         vals['real_estate_ids'] = [(6, 0, recent_estates.ids)]
         return vals
 

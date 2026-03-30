@@ -138,11 +138,45 @@ class RealEstate(models.Model):
     date_not_post = fields.Date(string='Ngày chưa đăng bài', default=fields.Date.context_today)
     is_expired = fields.Boolean(string='Đã hết hạn', default=False, compute='compute_is_expired')
 
-    image_avatar = fields.Binary(string='Ảnh')
+    image_avatar = fields.Binary(string='Ảnh', compute='_compute_image_avatar')
     is_visiter = fields.Boolean(string='Là quyền cộng tác viên', compute='compute_is_visiter')
     old_id = fields.Integer(string='ID cũ')
     image_avatar_html = fields.Html(string='Ảnh', store=True)
     is_default = fields.Boolean(string='Default', default=True)
+    date_last_modified = fields.Datetime(string='Ngày mới nhất', compute='_compute_date_last_modified', store=True,
+                                         index=True)
+
+    @api.depends('attachment_ids')
+    def _compute_image_avatar(self):
+        for record in self:
+            image_data = None
+            # Check if there are attachments, use the first one if available
+            if record.attachment_ids:
+                image_data = record.attachment_ids[0].datas
+            else:
+                # Load default image from static folder if no attachments are found
+                image_data = record._get_default_avatar()
+            
+            if image_data:
+                # image_data is already a base64 string in Odoo, no need to decode
+                if isinstance(image_data, bytes):
+                    image_data = image_data.decode('utf-8')
+                record.image_avatar = image_data
+            else:
+                record.image_avatar = False
+
+    @api.depends('date_entry', 'date_updated')
+    def _compute_date_last_modified(self):
+        for rec in self:
+            # Lấy ngày mới nhất giữa date_entry và date_updated
+            if rec.date_updated and rec.date_entry:
+                rec.date_last_modified = max(rec.date_entry, rec.date_updated)
+            elif rec.date_updated:
+                rec.date_last_modified = rec.date_updated
+            elif rec.date_entry:
+                rec.date_last_modified = rec.date_entry
+            else:
+                rec.date_last_modified = False
 
     def update_image(self):
         image_data = None
@@ -181,14 +215,14 @@ class RealEstate(models.Model):
         self.env['ir.sequence'].next_by_code('real.estate.sequence')
         return result
 
-    def _compute_image_avatar(self):
-        for record in self:
-            # Check if there are attachments, use the first one if available
-            if record.attachment_ids:
-                record.image_avatar = record.attachment_ids[0].datas
-            else:
-                # Load default image from static folder if no attachments are found
-                record.image_avatar = record._get_default_avatar()
+    # def _compute_image_avatar(self):
+    #     for record in self:
+    #         # Check if there are attachments, use the first one if available
+    #         if record.attachment_ids:
+    #             record.image_avatar = record.attachment_ids[0].datas
+    #         else:
+    #             # Load default image from static folder if no attachments are found
+    #             record.image_avatar = record._get_default_avatar()
 
     @api.depends('attachment_ids')
     def _compute_image_avatar_html(self):

@@ -184,8 +184,8 @@
 <!--                                        </t>-->
 <!--                                    </templates>-->
 <!--                                </kanban>-->
-                                <tree delete="1" style="table-layout: fixed;">
-                                <field name="image_avatar_html" widget="html" width="50"/>
+                                <tree delete="1" style="table-layout: fixed;" default_order="date_last_modified desc">
+                                <field name="image_avatar" widget="image" width="50"/>
                                 <field name="date_show" widget="html" width="100"/>
                                 <field name="code_demand_secondary_show" widget="html" width="120"/>
                                 <field name="is_visiter" invisible="1"/>
