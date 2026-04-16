@@ -95,7 +95,7 @@ class ResPartner(models.Model):
         
         # Lưu thông tin trước khi xóa
         deleted_count = len(partners_to_delete)
-        deleted_names = partners_to_delete.mapped('name')[:10]  # Lấy 10 tên đầu để hiển thị
+        deleted_names = [p.name or 'No Name' for p in partners_to_delete[:10]]  # Lấy 10 tên đầu, xử lý name = False
         
         # Xóa partners
         partners_to_delete.unlink()
@@ -104,7 +104,7 @@ class ResPartner(models.Model):
         message = _('Đã xóa %d partner không có nhà đất và không có số điện thoại.\n\n'
                    'Một số partner đã xóa:\n%s%s') % (
             deleted_count,
-            '\n'.join(['- ' + name for name in deleted_names]),
+            '\n'.join(['- ' + str(name) for name in deleted_names]),
             '\n...' if deleted_count > 10 else ''
         )
         
