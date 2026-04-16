@@ -158,7 +158,7 @@
                                 attrs="{'invisible': [('id', '!=', False)]}"/>
 
 
-                           <field name="real_estate_ids" widget="one2many_selectable" style="max-width: 100%; overflow-x: auto;" context="{'form_view_initial_mode': 'edit'}">
+                           <field name="real_estate_ids" widget="one2many_selectable" style="max-width: 100%; overflow-x: auto;">
 <!--                                    <kanban class="o_kanban_mobile" >-->
 <!--                                     <field name="street_id"/>-->
 <!--                                    <field name="address_ward_district_show"/>-->
