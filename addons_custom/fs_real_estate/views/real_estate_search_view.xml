@@ -75,14 +75,16 @@
                                 <field name="ward_ids"
                                     options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"
                                       widget="many2many_tags"/>
-
+                                <field name="number_house" />
                                 <field name="street_ids"
                                             options="{'no_open': True, 'no_create_edit': True, 'no_create': True}"
                                             class="street_select" placeholder="Chọn Đường" style="width: 100%;" widget="many2many_tags"/>
+
 <!--                                <field name="group_direction_id" />-->
                                 <field name="way_ids" widget="many2many_tags"/>
+
                                 <field name="type_number" />
-                                <field name="number_house" />
+
                                 <label for="number_house_from" string="Số nhà(Kiểu số)"/>
                                 <div colspan="1" style="display: flex; width: 98%;">
                                     <div style="flex: 0 0 49%; margin-right: 10px;">

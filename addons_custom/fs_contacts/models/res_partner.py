@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import UserError, ValidationError
 from datetime import date, datetime, timedelta
+import re
 
 
 class ResPartner(models.Model):
@@ -17,7 +18,36 @@ class ResPartner(models.Model):
     _sql_constraints = [
         ('check_name', "CHECK(1=1)", 'Contacts require a name')
     ]
+    
+    @api.constrains('mobile')
+    def _check_mobile_phone(self):
+        for record in self:
+            if not record.mobile:
+                raise ValidationError(_('Số điện thoại là bắt buộc. Vui lòng nhập số điện thoại.'))
+            
+            mobile_clean = record.mobile.strip()
+            
+            if not re.match(r'^\d{10}$', mobile_clean):
+                raise ValidationError(_(
+                    'Số điện thoại phải có đúng 10 chữ số.\n'
+                    'Số điện thoại hiện tại: "%s" (%d ký tự)'
+                ) % (mobile_clean, len(mobile_clean)))
+    
+    # @api.constrains('mobile_2', 'mobile_3', 'mobile_4')
+    # def _check_additional_mobile_phones(self):
+    #     for record in self:
+    #         for field_name in ['mobile_2', 'mobile_3', 'mobile_4']:
+    #             mobile_value = getattr(record, field_name)
+    #             if mobile_value:
+    #                 mobile_clean = mobile_value.strip()
+    #                 if not re.match(r'^\d{10}$', mobile_clean):
+    #                     field_label = record._fields[field_name].string
+    #                     raise ValidationError(_(
+    #                         '%s phải có đúng 10 chữ số.\n'
+    #                         'Số điện thoại hiện tại: "%s" (%d ký tự)'
+    #                     ) % (field_label, mobile_clean, len(mobile_clean)))
 
+    mobile = fields.Char(required=True)
     mobile_2 = fields.Char(string='Di động 2')
     mobile_3 = fields.Char(string='Di động 3')
     mobile_4 = fields.Char(string='Di động 4')
@@ -95,7 +125,6 @@ class ResPartner(models.Model):
     def create(self, vals):
         # Xử lý tách số điện thoại và tên từ trường name
         if vals.get('name'):
-            import re
             name_value = vals['name'].strip()
             
             # Pattern: số điện thoại 10 số ở đầu, có thể có dấu cách, sau đó là tên
@@ -106,6 +135,13 @@ class ResPartner(models.Model):
             if match:
                 phone_number = match.group(1)  # Số điện thoại 10 số
                 remaining_name = match.group(3)  # Phần tên sau dấu cách (nếu có)
+                
+                # Validate số điện thoại phải đúng 10 chữ số
+                if not re.match(r'^\d{10}$', phone_number):
+                    raise ValidationError(_(
+                        'Số điện thoại không hợp lệ: "%s"\n'
+                        'Số điện thoại phải có đúng 10 chữ số.'
+                    ) % phone_number)
                 
                 # Gán số điện thoại vào mobile (nếu chưa có)
                 if not vals.get('mobile'):
@@ -119,6 +155,17 @@ class ResPartner(models.Model):
                     # Chỉ có số điện thoại → đặt tên mặc định
                     vals['name'] = 'No Name'
         
+        # Validate mobile field trước khi tạo record
+        # if not vals.get('mobile'):
+        #     raise ValidationError(_('Số điện thoại là bắt buộc. Vui lòng nhập số điện thoại.'))
+        
+        mobile_clean = vals['mobile'].strip()
+        if not re.match(r'^\d{10}$', mobile_clean):
+            raise ValidationError(_(
+                'Số điện thoại phải có đúng 10 chữ số.\n'
+                'Số điện thoại hiện tại: "%s" (%d ký tự)'
+            ) % (mobile_clean, len(mobile_clean)))
+        
         # Xử lý sequence theo type_contact
         if vals.get('type_contact') == 'contact':
             self.env['ir.sequence'].next_by_code('res.partner.contact.sequence')
@@ -129,6 +176,21 @@ class ResPartner(models.Model):
         
         result = super(ResPartner, self).create(vals)
         return result
+    
+    # def write(self, vals):
+    #     # Validate mobile field khi update (nếu có thay đổi mobile)
+    #     if 'mobile' in vals:
+    #         if not vals.get('mobile'):
+    #             raise ValidationError(_('Số điện thoại là bắt buộc. Vui lòng nhập số điện thoại.'))
+            
+    #         mobile_clean = vals['mobile'].strip()
+    #         if not re.match(r'^\d{10}$', mobile_clean):
+    #             raise ValidationError(_(
+    #                 'Số điện thoại phải có đúng 10 chữ số.\n'
+    #                 'Số điện thoại hiện tại: "%s" (%d ký tự)'
+    #             ) % (mobile_clean, len(mobile_clean)))
+        
+    #     return super(ResPartner, self).write(vals)
     
     def action_migrate_phone_from_name(self):
         """
