@@ -108,10 +108,10 @@
                 </xpath>
 
                 <xpath expr="//form[1]/sheet[1]/group[1]/group[2]/field[@name='website']" position="after">
-                    <field name="mobile" string="Di động" widget="phone"/>
-                    <field name="mobile_2" widget="phone"/>
-                    <field name="mobile_3" widget="phone"/>
-                    <field name="mobile_4" widget="phone"/>
+                    <field name="mobile" string="Di động" widget="phone" placeholder="Số điện thoại"/>
+                    <field name="mobile_2" widget="phone" placeholder="Số điện thoại"/>
+                    <field name="mobile_3" widget="phone" placeholder="Số điện thoại"/>
+                    <field name="mobile_4" widget="phone" placeholder="Số điện thoại"/>
                 </xpath>
                 <xpath expr="//field[@name='mobile']" position="attributes">
                     <attribute name="string">Di động</attribute>

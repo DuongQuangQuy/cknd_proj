@@ -68,3 +68,48 @@ class ResPartner(models.Model):
                 'target': 'new',
                 'context': context,
             }
+    
+    def action_clean_partners_without_estate_and_mobile(self):
+        """
+        Xóa các partner không có nhà đất và không có bất kỳ số điện thoại nào
+        (mobile, mobile_2, mobile_3, mobile_4 đều trống)
+        """
+        # Tìm tất cả partners không có estate_ids
+        partners_without_estate = self.env['res.partner'].search([
+            ('estate_ids', '=', False)
+        ])
+        
+        # Lọc thêm điều kiện: không có bất kỳ số điện thoại nào
+        partners_to_delete = partners_without_estate.filtered(
+            lambda p: not p.mobile and not p.mobile_2 and not p.mobile_3 and not p.mobile_4
+        )
+        
+        if not partners_to_delete:
+            raise UserError(_('Không tìm thấy partner nào cần xóa.\n'
+                            'Tất cả partners đều có nhà đất hoặc có số điện thoại.'))
+        
+        # Lưu thông tin trước khi xóa
+        deleted_count = len(partners_to_delete)
+        deleted_names = partners_to_delete.mapped('name')[:10]  # Lấy 10 tên đầu để hiển thị
+        
+        # Xóa partners
+        partners_to_delete.unlink()
+        
+        # Hiển thị thông báo
+        message = _('Đã xóa %d partner không có nhà đất và không có số điện thoại.\n\n'
+                   'Một số partner đã xóa:\n%s%s') % (
+            deleted_count,
+            '\n'.join(['- ' + name for name in deleted_names]),
+            '\n...' if deleted_count > 10 else ''
+        )
+        
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _('Xóa thành công'),
+                'message': message,
+                'type': 'success',
+                'sticky': False,
+            }
+        }
