@@ -129,3 +129,62 @@ class ResPartner(models.Model):
         
         result = super(ResPartner, self).create(vals)
         return result
+    
+    def action_migrate_phone_from_name(self):
+        """
+        Hàm migrate dữ liệu cũ: Tìm các partner có số điện thoại trong tên và tách ra
+        Có thể gọi từ button hoặc chạy thủ công
+        """
+        import re
+        
+        # Tìm tất cả partners có name chứa số điện thoại 10 số ở đầu
+        all_partners = self.env['res.partner'].search([
+            ('name', '!=', False),
+            ('name', '!=', 'No Name')
+        ])
+        
+        updated_count = 0
+        phone_pattern = r'^(\d{10})(\s+(.+))?$'
+        
+        for partner in all_partners:
+            if not partner.name:
+                continue
+                
+            name_value = partner.name.strip()
+            match = re.match(phone_pattern, name_value)
+            
+            if match:
+                phone_number = match.group(1)  # Số điện thoại 10 số
+                remaining_name = match.group(3)  # Phần tên sau dấu cách (nếu có)
+                
+                # Chuẩn bị dữ liệu update
+                update_vals = {}
+                
+                # Chỉ update mobile nếu chưa có hoặc khác với số điện thoại tìm thấy
+                if not partner.mobile or partner.mobile != phone_number:
+                    update_vals['mobile'] = phone_number
+                
+                # Update tên
+                if remaining_name:
+                    # Có tên sau số điện thoại → giữ lại tên
+                    update_vals['name'] = remaining_name.strip()
+                else:
+                    # Chỉ có số điện thoại → đặt tên mặc định
+                    update_vals['name'] = 'No Name'
+                
+                # Thực hiện update
+                if update_vals:
+                    partner.write(update_vals)
+                    updated_count += 1
+        
+        # Trả về thông báo
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'title': _('Migration Complete'),
+                'message': _('Đã cập nhật %s partners: tách số điện thoại từ tên sang mobile.') % updated_count,
+                'type': 'success',
+                'sticky': False,
+            }
+        }

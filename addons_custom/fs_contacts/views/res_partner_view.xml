@@ -192,5 +192,19 @@
             <field name="view_mode">tree,form</field>
         </record>
 
+    <!-- Action để migrate dữ liệu cũ -->
+    <record id="action_migrate_phone_from_name" model="ir.actions.server">
+        <field name="name">Tách số điện thoại từ tên</field>
+        <field name="model_id" ref="base.model_res_partner"/>
+        <field name="binding_model_id" ref="base.model_res_partner"/>
+        <field name="binding_view_types">list</field>
+        <field name="state">code</field>
+        <field name="code">
+action = records.action_migrate_phone_from_name()
+        </field>
+    </record>
+
+    <menuitem id="menu_migrate_phone_from_name" name="Tách số điện thoại từ tên" parent="res_partner_action" action="action_migrate_phone_from_name"/>
+
 
 </odoo>
