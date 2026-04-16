@@ -72,12 +72,16 @@ class ResPartner(models.Model):
     def action_clean_partners_without_estate_and_mobile(self):
         """
         Xóa các partner không có nhà đất và không có bất kỳ số điện thoại nào
-        (mobile, mobile_2, mobile_3, mobile_4 đều trống) và không gắn với user
+        (mobile, mobile_2, mobile_3, mobile_4 đều trống), không gắn với user, và không thuộc company nào
         """
-        # Tìm tất cả partners không có estate_ids và không gắn với user
+        # Lấy tất cả company IDs từ res.company
+        company_partner_ids = self.env['res.company'].search([]).mapped('partner_id').ids
+        
+        # Tìm tất cả partners không có estate_ids, không gắn với user, và không phải partner của company
         partners_without_estate = self.env['res.partner'].search([
             ('estate_ids', '=', False),
-            ('user_ids', '=', False)  # Không gắn với user nào
+            ('user_ids', '=', False),  # Không gắn với user nào
+            ('id', 'not in', company_partner_ids)  # Không phải partner của res.company
         ])
         
         # Lọc thêm điều kiện: không có bất kỳ số điện thoại nào
