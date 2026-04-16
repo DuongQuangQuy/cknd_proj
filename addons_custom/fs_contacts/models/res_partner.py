@@ -93,11 +93,39 @@ class ResPartner(models.Model):
 
     @api.model
     def create(self, vals):
+        # Xử lý tách số điện thoại và tên từ trường name
+        if vals.get('name'):
+            import re
+            name_value = vals['name'].strip()
+            
+            # Pattern: số điện thoại 10 số ở đầu, có thể có dấu cách, sau đó là tên
+            # VD: "0832629295 A Quý" hoặc "0832629295"
+            phone_pattern = r'^(\d{10})(\s+(.+))?$'
+            match = re.match(phone_pattern, name_value)
+            
+            if match:
+                phone_number = match.group(1)  # Số điện thoại 10 số
+                remaining_name = match.group(3)  # Phần tên sau dấu cách (nếu có)
+                
+                # Gán số điện thoại vào mobile (nếu chưa có)
+                if not vals.get('mobile'):
+                    vals['mobile'] = phone_number
+                
+                # Xử lý tên
+                if remaining_name:
+                    # Có tên sau số điện thoại → giữ lại tên
+                    vals['name'] = remaining_name.strip()
+                else:
+                    # Chỉ có số điện thoại → đặt tên mặc định
+                    vals['name'] = 'No Name'
+        
+        # Xử lý sequence theo type_contact
         if vals.get('type_contact') == 'contact':
             self.env['ir.sequence'].next_by_code('res.partner.contact.sequence')
         elif vals.get('type_contact') == 'customer':
             self.env['ir.sequence'].next_by_code('res.partner.customer.sequence')
         elif vals.get('type_contact') == 'agency':
             self.env['ir.sequence'].next_by_code('res.partner.agency.sequence')
+        
         result = super(ResPartner, self).create(vals)
         return result
