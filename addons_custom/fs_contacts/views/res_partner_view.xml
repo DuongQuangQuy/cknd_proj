@@ -204,7 +204,7 @@ action = records.action_migrate_phone_from_name()
         </field>
     </record>
 
-    <menuitem id="menu_migrate_phone_from_name" name="Tách số điện thoại từ tên" parent="res_partner_action" action="action_migrate_phone_from_name"/>
+    <!-- <menuitem id="menu_migrate_phone_from_name" name="Tách số điện thoại từ tên" parent="res_partner_action" action="action_migrate_phone_from_name"/> -->
 
 
 </odoo>
