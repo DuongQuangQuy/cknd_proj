@@ -13,6 +13,7 @@ from . import role_detail
 from . import res_partner
 from . import group_direction
 from . import real_estate_search
+from . import real_estate_search_optimized
 from . import demand_estate_search
 from . import res_config_settings
 from . import real_estate_search_expired
