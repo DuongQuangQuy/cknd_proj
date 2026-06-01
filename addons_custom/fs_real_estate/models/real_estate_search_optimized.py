@@ -36,7 +36,8 @@ class RealEstateSearchOptimized(models.Model):
         vals['total_count'] = total_count
         
         # KHÔNG load data - để trống
-        vals['real_estate_ids'] = [(6, 0, [])]
+        recent_estates = self.env['real.estate'].search([], order='date_last_modified desc', limit=40)
+        vals['real_estate_ids'] = [(6, 0, recent_estates.ids)]
         
         return vals
     
