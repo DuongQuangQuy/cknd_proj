@@ -34,7 +34,7 @@ class ResWard(models.Model):
             'view_mode': 'form',
             'view_type': 'form',
             'res_model': 'res.ward',
-            'view_id': self.env.ref('fs_contact.res_ward_view_form').id,
+            'view_id': self.env.ref('fs_contacts.res_ward_view_form').id,
             'res_id': self.id,
             'target': 'new',
         }
