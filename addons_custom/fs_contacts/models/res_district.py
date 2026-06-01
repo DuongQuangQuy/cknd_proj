@@ -33,7 +33,7 @@ class ResDistrict(models.Model):
             'view_mode': 'form',
             'view_type': 'form',
             'res_model': 'res.district',
-            'view_id': self.env.ref('fs_contact.res_district_view_form').id,
+            'view_id': self.env.ref('fs_contacts.res_district_view_form').id,
             'res_id': self.id,
             'target': 'new',
         }
