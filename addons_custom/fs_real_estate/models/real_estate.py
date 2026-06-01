@@ -82,7 +82,7 @@ class RealEstate(models.Model):
     is_elevator = fields.Boolean('Thang máy')
 
     # Price
-    total_price = fields.Float('Tổng tiền')
+    total_price = fields.Float('Giá')
     currency_id = fields.Many2one('res.currency', 'Tiền tệ', default=lambda self: self.env.company.currency_id)
     fee = fields.Char('Phí')
     fee_unit = fields.Selection([
@@ -122,7 +122,7 @@ class RealEstate(models.Model):
     parent_id = fields.Many2one('real.estate', string='Nhà đất chính')
     child_ids = fields.One2many('real.estate', 'parent_id', string='Chi tiết yêu cầu phụ')
     date_show = fields.Html(string='Ngày', compute='compute_date_show', store=False)
-    code_demand_secondary_show = fields.Html(string='Code|Nhu cầu|Hình thức',
+    code_demand_secondary_show = fields.Html(string='Nhu cầu|Hình thức',
                                              compute='compute_code_demand_secondary_show', store=True)
     type_style_direction_show = fields.Html(string='Loại|Kiểu|Hướng', compute='compute_type_style_direction_show')
     address_ward_district_show = fields.Html(string='Phường - Quận', compute='compute_address_ward_district_show',
@@ -150,6 +150,12 @@ class RealEstate(models.Model):
     is_default = fields.Boolean(string='Default', default=True)
     date_last_modified = fields.Datetime(string='Ngày mới nhất', compute='_compute_date_last_modified', store=True,
                                          index=True)
+    deposit_paid_display = fields.Text(string='Giá', compute='_compute_deposit_paid_display', store=False)
+
+    @api.depends('deposit', 'paid', 'fee','total_price')
+    def _compute_deposit_paid_display(self):
+        for record in self:
+            record.deposit_paid_display = f"Giá: {record.total_price}\nCọc: {record.deposit}\nTT: {record.paid}\nPhí: {record.fee or ''}"
 
     @api.depends('attachment_ids')
     def _compute_image_avatar(self):
@@ -161,7 +167,7 @@ class RealEstate(models.Model):
             else:
                 # Load default image from static folder if no attachments are found
                 image_data = record._get_default_avatar()
-            
+
             if image_data:
                 # image_data is already a base64 string in Odoo, no need to decode
                 if isinstance(image_data, bytes):
@@ -183,6 +189,7 @@ class RealEstate(models.Model):
             dates = [d for d in dates if d]
 
             rec.date_last_modified = max(dates) if dates else False
+
     def update_image(self):
         image_data = None
         # Check if there are attachments, use the first one if available
@@ -199,7 +206,7 @@ class RealEstate(models.Model):
             self.image_avatar_html = f'<img src="data:image/png;base64,{image_data}" style="max-width: 100px; max-height: 100px;"/>'
         else:
             self.image_avatar_html = ''
-        self.is_default= False
+        self.is_default = False
 
     def compute_is_visiter(self):
         for rec in self:

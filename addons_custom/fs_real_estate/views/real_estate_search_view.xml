@@ -202,17 +202,17 @@
                                 <field name="date_show" widget="html" width="100"/>
                                 <field name="code_demand_secondary_show" widget="html" width="120"/>
                                 <field name="is_visiter" invisible="1"/>
-                                <field name="type_style_direction_show" widget="html" width="100"/>
+                                <field name="type_style_direction_show" widget="html" width="50"/>
                                 <field name="number_house" attrs="{'invisible': [('is_visiter', '=', True)]}" width="80"/>
                                 <field name="street_id" attrs="{'invisible': [('is_visiter', '=', True)]}" width="120"/>
                                 <field name="address_ward_district_show" attrs="{'invisible': [('is_visiter', '=', True)]}" width="150"/>
                                 <field name="horizontal_length_use_area_show" widget="html" width="100"/>
-                                <field name="total_price" width="100"/>
+                                <field name="deposit_paid_display" width="100"/>
                                 <field name="structure_ids" widget="many2many_tags" width="120"/>
                                 <field name="note" width="150"/>
-                                <field name="deposit" width="80"/>
-                                <field name="paid" width="80"/>
-                                <field name="fee" width="80"/>
+<!--                                <field name="deposit_paid_display" width="80"/>-->
+<!--                                <field name="paid" width="80"/>-->
+<!--                                <field name="fee" width="80"/>-->
                                 <button string="!" name="action_show_advertising_sample" type="object" class="oe_highlight" style="min-width:30px; min-height:30px;"/>
                                 <button name="action_update_date_entry" type="object" icon="fa-refresh" class="oe_highlight"/>
                                 <button string=" " name="action_detail_contact_view" type="object" icon="fa-phone" class="oe_highlight" style="min-width:30px; min-height:30px;"/>
