@@ -13,7 +13,7 @@
     'website': "",
 
     'category': '',
-    'version': '0.1',
+    'version': '15.0.1.0.0',
 
     # any module necessary for this one to work correctly
     'depends': [
@@ -24,6 +24,7 @@
     'data': [
         # data
         'data/ir_sequence_data.xml',
+        'data/ir_cron_data.xml',
         # security
         'security/real_estate_groups.xml',
         'security/ir.model.access.csv',
@@ -42,6 +43,7 @@
         'views/res_partner_view.xml',
         'views/group_direction_view.xml',
         'views/real_estate_search_view.xml',
+        'views/real_estate_search_pagination_view.xml',
         'views/demand_estate_search_view.xml',
         'views/res_config_settings_views.xml',
         'views/real_estate_search_expired_view.xml',
