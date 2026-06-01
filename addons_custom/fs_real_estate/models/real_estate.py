@@ -401,10 +401,10 @@ class RealEstate(models.Model):
                 horizontal_length_use_area_show += 'Ngang: %s<br/>' % (rec.horizontal)
             if rec.length:
                 horizontal_length_use_area_show += 'Dài: %s<br/>' % (rec.length)
-            if rec.acreage_area:
-                horizontal_length_use_area_show += 'DTKV: %s<br/>' % (rec.acreage_area)
-            if rec.acreage_use:
-                horizontal_length_use_area_show += 'DTSD: %s<br/>' % (rec.acreage_use)
+
+            horizontal_length_use_area_show += 'DTKV: %s<br/>' % (rec.acreage_area or '')
+
+            horizontal_length_use_area_show += 'DTSD: %s<br/>' % (rec.acreage_use or '')
             rec.horizontal_length_use_area_show = horizontal_length_use_area_show
 
     @api.depends('ward_id', 'district_id')
