@@ -152,7 +152,12 @@ class RealEstate(models.Model):
                                          index=True)
     deposit_paid_display = fields.Text(string='Giá', compute='_compute_deposit_paid_display', store=False)
 
-    @api.depends('deposit', 'paid', 'fee','total_price')
+    @api.onchange('horizontal', 'length')
+    def _onchange_horizontal(self):
+        for rec in self:
+            rec.acreage_area = rec.horizontal * rec.length
+
+    @api.depends('deposit', 'paid', 'fee', 'total_price')
     def _compute_deposit_paid_display(self):
         for record in self:
             record.deposit_paid_display = f"Giá: {record.total_price}\nCọc: {record.deposit}\nTT: {record.paid}\nPhí: {record.fee or ''}"
