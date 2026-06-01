@@ -203,9 +203,9 @@
                                 <field name="code_demand_secondary_show" widget="html" width="120"/>
                                 <field name="is_visiter" invisible="1"/>
                                 <field name="type_style_direction_show" widget="html" width="50"/>
-                                <field name="number_house" attrs="{'invisible': [('is_visiter', '=', True)]}" width="80"/>
-                                <field name="street_id" attrs="{'invisible': [('is_visiter', '=', True)]}" width="120"/>
-                                <field name="address_ward_district_show" attrs="{'invisible': [('is_visiter', '=', True)]}" width="150"/>
+                                <field name="number_house"  width="80"/>
+                                <field name="street_id"  width="120"/>
+                                <field name="address_ward_district_show" width="150"/>
                                 <field name="horizontal_length_use_area_show" widget="html" width="100"/>
                                 <field name="deposit_paid_display" width="100"/>
                                 <field name="structure_ids" widget="many2many_tags" width="120"/>
