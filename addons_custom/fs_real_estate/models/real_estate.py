@@ -128,7 +128,7 @@ class RealEstate(models.Model):
     address_ward_district_show = fields.Html(string='Phường - Quận', compute='compute_address_ward_district_show',
                                              store=True)
     horizontal_length_use_area_show = fields.Html(string='Dài|Rộng', compute='compute_horizontal_length_use_area',
-                                                  store=False)
+                                                  store=True)
 
     status_advertising = fields.Selection([('not_post', 'Chưa đăng bài'),
                                            ('posted', 'Đã đăng'),
