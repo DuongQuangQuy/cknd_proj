@@ -104,6 +104,7 @@ class RealEstate(models.Model):
     number_house = fields.Char('Số nhà', required=True)
     latitude = fields.Float('Vĩ độ', digits=(10, 7))
     longitude = fields.Float('Kinh độ', digits=(10, 7))
+    not_found = fields.Boolean()
 
     def geocode_address(self):
         """Lấy tọa độ lat/lng từ địa chỉ dùng Maptiler Geocoding API"""
@@ -148,11 +149,14 @@ class RealEstate(models.Model):
                     # self.is_geocoded = True
                     print("✅ LAT:", self.latitude, "LNG:", self.longitude)
                 else:
+                    self.not_found= True
                     print("❌ Không tìm thấy:", address_str)
             else:
+                self.not_found = True
                 print("❌ Lỗi HTTP:", resp.status_code, resp.text)
 
         except Exception as e:
+            self.not_found = True
             print("❌ Lỗi:", e)
     
     @api.onchange('number_house', 'street_id', 'ward_id', 'district_id', 'city_id')
