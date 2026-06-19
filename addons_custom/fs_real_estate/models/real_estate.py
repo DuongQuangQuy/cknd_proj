@@ -145,7 +145,7 @@ class RealEstate(models.Model):
                     coords = features[0]['geometry']['coordinates']
                     self.longitude = coords[0]  # lng
                     self.latitude = coords[1]  # lat
-                    self.is_geocoded = True
+                    # self.is_geocoded = True
                     print("✅ LAT:", self.latitude, "LNG:", self.longitude)
                 else:
                     print("❌ Không tìm thấy:", address_str)
