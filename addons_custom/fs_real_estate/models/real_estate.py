@@ -102,6 +102,64 @@ class RealEstate(models.Model):
     district_id = fields.Many2one('res.district', 'Quận/Huyện', required=True)
     city_id = fields.Many2one('res.city', 'Thành phố', required=True)
     number_house = fields.Char('Số nhà', required=True)
+    latitude = fields.Float('Vĩ độ', digits=(10, 7))
+    longitude = fields.Float('Kinh độ', digits=(10, 7))
+
+    def geocode_address(self):
+        """Lấy tọa độ lat/lng từ địa chỉ dùng Maptiler Geocoding API"""
+        import requests
+
+        if not (self.number_house and self.street_id and self.district_id and self.city_id):
+            return
+
+        # Ghép địa chỉ
+        address_parts = []
+        if self.number_house:
+            address_parts.append(self.number_house)
+        if self.street_id:
+            address_parts.append(self.street_id.name)
+        if self.ward_id:
+            address_parts.append(self.ward_id.name)
+        if self.district_id:
+            address_parts.append(self.district_id.name)
+        if self.city_id:
+            address_parts.append(self.city_id.name)
+        address_parts.append('Vietnam')
+
+        address_str = ', '.join(address_parts)
+
+        try:
+            url = f'https://api.maptiler.com/geocoding/{requests.utils.quote(address_str)}.json'
+            params = {
+                'key': 'ImjPn4h0t4FU8GPqW22o',  # ← thay bằng key Maptiler
+                'language': 'vi',
+                'country': 'vn',  # Giới hạn trong VN
+                'limit': 1,
+            }
+            resp = requests.get(url, params=params, timeout=5)
+
+            if resp.status_code == 200:
+                data = resp.json()
+                features = data.get('features', [])
+                if features:
+                    coords = features[0]['geometry']['coordinates']
+                    self.longitude = coords[0]  # lng
+                    self.latitude = coords[1]  # lat
+                    self.is_geocoded = True
+                    print("✅ LAT:", self.latitude, "LNG:", self.longitude)
+                else:
+                    print("❌ Không tìm thấy:", address_str)
+            else:
+                print("❌ Lỗi HTTP:", resp.status_code, resp.text)
+
+        except Exception as e:
+            print("❌ Lỗi:", e)
+    
+    @api.onchange('number_house', 'street_id', 'ward_id', 'district_id', 'city_id')
+    def _onchange_address_geocode(self):
+        """Tự động geocode khi địa chỉ thay đổi"""
+        if self.number_house and self.street_id and self.city_id:
+            self.geocode_address()
 
     # Role Contact
     show_hide_table_role = fields.Boolean(string="Ẩn hiện vai trò")
@@ -646,6 +704,24 @@ class RealEstate(models.Model):
     def get_estate(self):
         estates = self.env['role.estate'].search([('partner_id', 'in', self.role_line_ids.partner_id.ids)])
         return estates.estate_id.ids
+
+    @api.model
+    def search_estates_in_bounds(self, min_lat, max_lat, min_lng, max_lng, limit=100):
+        """Tìm estates trong bounding box (cho map circle search)"""
+        domain = [
+            ('latitude', '>=', min_lat),
+            ('latitude', '<=', max_lat),
+            ('longitude', '>=', min_lng),
+            ('longitude', '<=', max_lng),
+            ('latitude', '!=', False),
+            ('longitude', '!=', False),
+        ]
+        estates = self.search(domain, limit=limit)
+        return estates.read([
+            'id', 'code', 'note', 'latitude', 'longitude',
+            'total_price', 'acreage_area', 'status_advertising',
+            'number_house', 'street_id', 'ward_id', 'district_id', 'city_id',
+        ])
 
     def action_detail_contact_view(self):
         context = {

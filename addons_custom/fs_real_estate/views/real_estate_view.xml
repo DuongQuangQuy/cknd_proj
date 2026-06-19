@@ -92,6 +92,12 @@
                                                  />
                                         </div>
                                     </div>
+                                    <label for="latitude" attrs="{'invisible': [('is_visiter', '=', True)]}"/>
+                                    <div attrs="{'invisible': [('is_visiter', '=', True)]}">
+                                        <field name="latitude" class="oe_inline"/>
+                                        <field name="longitude" class="oe_inline"/>
+                                        <button name="geocode_address" type="object" string="🌍 Lấy tọa độ" class="btn-link"/>
+                                    </div>
                                 </group>
                                 <group string="Vai trò">
                                     <button name="show_role_line"
