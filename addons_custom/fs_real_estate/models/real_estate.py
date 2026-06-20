@@ -106,6 +106,45 @@ class RealEstate(models.Model):
     longitude = fields.Float('Kinh độ', digits=(10, 7))
     not_found = fields.Boolean()
 
+    def geocode_address_backup(self):
+        import requests
+
+        if not (self.number_house and self.street_id and self.district_id and self.city_id):
+            return
+
+        address_parts = []
+        if self.number_house: address_parts.append(self.number_house)
+        if self.street_id: address_parts.append(self.street_id.name)
+        if self.ward_id: address_parts.append(self.ward_id.name)
+        if self.district_id: address_parts.append(self.district_id.name)
+        if self.city_id: address_parts.append(self.city_id.name)
+        address_parts.append('Vietnam')
+
+        address_str = ', '.join(address_parts)
+
+        try:
+            url = 'https://api.opencagedata.com/geocode/v1/json'
+            params = {
+                'q': address_str,
+                'key': '3091d5a4339e4e69bb9c9d2f82f61ca2',
+                'language': 'vi',
+                'countrycode': 'vn',
+                'limit': 1,
+                'no_annotations': 1,
+            }
+            resp = requests.get(url, params=params, timeout=5)
+            data = resp.json()
+            results = data.get('results', [])
+            if results:
+                self.latitude = results[0]['geometry']['lat']
+                self.longitude = results[0]['geometry']['lng']
+
+            # else:
+            #     self.not_found = True
+        except Exception as e:
+            pass
+            # self.not_found = False
+
     def geocode_address(self):
         """Lấy tọa độ lat/lng từ địa chỉ dùng Maptiler Geocoding API"""
         import requests
