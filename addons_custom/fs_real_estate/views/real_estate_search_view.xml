@@ -195,7 +195,7 @@
 <!--                                        </t>-->
 <!--                                    </templates>-->
 <!--                                </kanban>-->
-                                <tree delete="1" style="table-layout: fixed;" default_order="date_last_modified desc">
+                                <tree delete="1" style="table-layout: fixed;" default_order="create_date desc">
                                     <field name="date_last_modified" invisible="1"/>
                                     <field name="image_avatar_html" widget="html"/>
 <!--                                <field name="image_avatar" widget="image" width="50"/>-->
