@@ -105,6 +105,7 @@ class RealEstate(models.Model):
     latitude = fields.Float('Vĩ độ', digits=(10, 7))
     longitude = fields.Float('Kinh độ', digits=(10, 7))
     not_found = fields.Boolean()
+    url_map = fields.Html(string='Link chỉ định gg map')
 
     def geocode_address_backup(self):
         import requests
@@ -197,7 +198,9 @@ class RealEstate(models.Model):
         except Exception as e:
             self.not_found = True
             print("❌ Lỗi:", e)
-    
+
+
+
     @api.onchange('number_house', 'street_id', 'ward_id', 'district_id', 'city_id')
     def _onchange_address_geocode(self):
         """Tự động geocode khi địa chỉ thay đổi"""
@@ -252,6 +255,30 @@ class RealEstate(models.Model):
     date_last_modified = fields.Datetime(string='Ngày mới nhất', compute='_compute_date_last_modified', store=True,
                                          index=True)
     deposit_paid_display = fields.Text(string='Giá', compute='_compute_deposit_paid_display', store=False)
+
+    address_str = fields.Char(string='địa chỉ str', compute='_compute_address_str', store=True)
+
+    @api.depends('number_house', 'street_id', 'ward_id', 'district_id', 'city_id')
+    def _compute_address_str(self):
+        for rec in self:
+            parts = []
+
+            # Số nhà + đường ghép trực tiếp, không có dấu phẩy
+            if rec.number_house and rec.street_id:
+                parts.append(f"{rec.number_house} {rec.street_id.name}")
+            elif rec.number_house:
+                parts.append(rec.number_house)
+            elif rec.street_id:
+                parts.append(rec.street_id.name)
+
+            if rec.ward_id:
+                parts.append(rec.ward_id.name)
+            if rec.district_id:
+                parts.append(rec.district_id.name)
+            if rec.city_id:
+                parts.append(rec.city_id.name)
+
+            rec.address_str = ', '.join(parts) if parts else ''
 
     @api.onchange('horizontal', 'length')
     def _onchange_horizontal(self):
@@ -608,6 +635,9 @@ class RealEstate(models.Model):
     def show_role_line(self):
         for rec in self:
             rec.show_hide_table_role = not rec.show_hide_table_role
+
+    def action_location(self):
+        pass
 
     def _get_address(self, house=0, street=0, ward=0, district=0, city=0):
         """Get full address of real estate with parameters are 1
