@@ -14,7 +14,7 @@
     </record>
 
     <record id="real_estate_prices_config_action" model="ir.actions.act_window">
-        <field name="name">Giá nhà đất</field>
+        <field name="name">Phân quyền giá</field>
         <field name="res_model">real.estate.prices.config</field>
         <field name="view_mode">tree,form</field>
     </record>

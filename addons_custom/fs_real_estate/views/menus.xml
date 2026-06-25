@@ -249,7 +249,7 @@
 
         <menuitem
         id="real_estate_prices_config_menu"
-        name="Giá nhà đất"
+        name="Phân quyền giá"
         action="real_estate_prices_config_action"
         groups="fs_real_estate.group_real_estate_import_data,fs_real_estate.group_real_estate_admin"
         parent="fs_real_estate.menu_real_estate_master_estate_sub"
