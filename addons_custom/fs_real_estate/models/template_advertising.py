@@ -9,3 +9,4 @@ class TemplateAdvertising(models.Model):
 
     name = fields.Char(string='Name', required=True)
     content = fields.Text('Nội dung quảng cáo')
+    

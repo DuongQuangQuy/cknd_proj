@@ -8,83 +8,39 @@
             <field name="inherit_id" ref="real_estate_search_view_form"/>
             <field name="arch" type="xml">
                 
-                <!-- Thêm pagination controls vào cuối form -->
-                <xpath expr="//sheet" position="after">
-                    <footer>
-                        <group>
-                            <group string="📊 Phân trang thông minh" col="4">
-                                
-                                <!-- Hiển thị thông tin tổng quan -->
-                                <div class="o_row" colspan="4">
-                                    <label for="total_count" string="Tổng số kết quả:"/>
-                                    <field name="total_count" readonly="1" 
-                                           style="font-weight:bold;color:#007bff;"/>
-                                    <span style="margin-left:20px;">|</span>
-                                    <label for="total_pages" string="Tổng số trang:" style="margin-left:10px;"/>
-                                    <field name="total_pages" readonly="1" 
-                                           style="font-weight:bold;color:#28a745;"/>
-                                </div>
-                                
-                                <!-- Page size selector -->
-                                <field name="page_size" widget="radio" 
-                                       options="{'horizontal': true}"/>
-                                
-                                <!-- Pagination buttons -->
-                                <div class="o_row" colspan="4" style="margin-top:10px;">
-                                    <button name="action_first_page" 
-                                            string="⏮ Đầu" 
-                                            type="object" 
-                                            class="btn-secondary"
-                                            attrs="{'invisible': [('page', '=', 1)]}"/>
-                                    
-                                    <button name="action_prev_page" 
-                                            string="◀ Trước" 
-                                            type="object" 
-                                            class="btn-primary"
-                                            attrs="{'invisible': [('page', '=', 1)]}"/>
-                                    
-                                    <span style="margin:0 15px;">
-                                        <label for="page" string="Trang:"/>
-                                        <field name="page" 
-                                               style="width:60px;text-align:center;font-weight:bold;"/>
-                                        <span style="margin:0 5px;">/</span>
-                                        <field name="total_pages" readonly="1" 
-                                               style="font-weight:bold;color:#6c757d;"/>
-                                    </span>
-                                    
-                                    <button name="action_next_page" 
-                                            string="Sau ▶" 
-                                            type="object" 
-                                            class="btn-primary"/>
-                                    
-                                    <button name="action_last_page" 
-                                            string="Cuối ⏭" 
-                                            type="object" 
-                                            class="btn-secondary"/>
-                                </div>
-                                
-                                <!-- Hiển thị range hiện tại -->
-                                <div class="alert alert-info" colspan="4" 
-                                     style="margin-top:10px;padding:10px;">
-                                    <i class="fa fa-info-circle"/> 
-                                    <strong>Đang hiển thị:</strong>
-                                    <span> Từ </span>
-                                    <field name="page" readonly="1" invisible="1"/>
-                                    <field name="page_size" readonly="1" invisible="1"/>
-                                    <span attrs="{'invisible': [('page_size', '=', '0')]}">
-                                        kết quả từ trang hiện tại
-                                    </span>
-                                    <span attrs="{'invisible': [('page_size', '!=', '0')]}">
-                                        <strong>tất cả</strong>
-                                    </span>
-                                    <span> trong tổng số </span>
-                                    <strong><field name="total_count" readonly="1"/></strong>
-                                    <span> kết quả</span>
-                                </div>
-                                
-                            </group>
-                        </group>
-                    </footer>
+                <!-- Đặt pagination vào góc phải của o_x2m_control_panel (nơi pager đã ẩn) -->
+                <xpath expr="//field[@name='real_estate_ids']" position="before">
+                    <div style="display:flex; justify-content:flex-end; align-items:center; margin-bottom:4px; gap:10px; padding-right:4px;">
+                        <field name="page_size" style="width:auto;"/>
+                        <div style="display:flex; align-items:center; gap:4px;">
+                            <button name="action_first_page"
+                                    string="⏮"
+                                    type="object"
+                                    class="btn-sm btn-secondary"
+                                    attrs="{'invisible': [('page', '=', 1)]}"/>
+                            <button name="action_prev_page"
+                                    string="◀"
+                                    type="object"
+                                    class="btn-sm btn-primary"
+                                    attrs="{'invisible': [('page', '=', 1)]}"/>
+                            <span style="margin:0 4px; font-weight:bold;">
+                                <field name="page" style="width:36px; text-align:center; display:inline-block;"/>
+                                <span style="margin:0 3px;">/</span>
+                                <field name="total_pages" readonly="1" style="display:inline-block; color:#6c757d;"/>
+                            </span>
+                            <button name="action_next_page"
+                                    string="▶"
+                                    type="object"
+                                    class="btn-sm btn-primary"/>
+                            <button name="action_last_page"
+                                    string="⏭"
+                                    type="object"
+                                    class="btn-sm btn-secondary"/>
+                            <span style="margin-left:8px; color:#007bff; font-size:12px;">
+                                (<field name="total_count" readonly="1" style="display:inline-block; color:#007bff; font-weight:bold;"/> kết quả)
+                            </span>
+                        </div>
+                    </div>
                 </xpath>
                 
             </field>

@@ -6,7 +6,7 @@ class RealEstateAdvertisingTemplate(models.Model):
 
     name = fields.Char(string='Name')
     advertising_template = fields.Text(string='Text template')
-
+    is_advertising = fields.Boolean(string='Là quảng cáo', default=False)
     @api.model
     def create(self, vals):
         res = super(RealEstateAdvertisingTemplate, self).create(vals)

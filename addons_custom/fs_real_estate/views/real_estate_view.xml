@@ -56,6 +56,11 @@
                         </group>
                         <group >
                         <button string="Chia sẽ" name="action_show_advertising_sample" type="object" class="oe_highlight" style="min-width:30px; min-height:30px;"/>
+                            <!-- <button name="action_location"
+                                    type="object"
+                                    string="Vị trí"
+                                    class="oe_highlight"
+                                    style="margin-left:100%"/> -->
                             <field name="type_demand_id"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" style="width: 90px !important; min-width: 90px !important;" required="1"/>
                             <field name="secondary_form_id"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" required="1"/>
                             <field name="date_receive"/>

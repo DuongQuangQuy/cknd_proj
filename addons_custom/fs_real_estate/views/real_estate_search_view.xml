@@ -9,6 +9,9 @@
 <!--                    <header>-->
 <!--                        -->
 <!--                    </header>-->
+                    <style>
+                        .o_estate_search_form_view .o_x2m_control_panel .o_pager { display: none !important; }
+                    </style>
                     <sheet >
                         <group>
                             <group string="Liên hệ">
@@ -210,6 +213,7 @@
                                 <field name="deposit_paid_display" width="100"/>
                                 <field name="structure_ids" widget="many2many_tags" width="120"/>
                                 <field name="note" width="150"/>
+                                    <field name="create_date" invisible="1"/>
 <!--                                <field name="deposit_paid_display" width="80"/>-->
 <!--                                <field name="paid" width="80"/>-->
 <!--                                <field name="fee" width="80"/>-->
