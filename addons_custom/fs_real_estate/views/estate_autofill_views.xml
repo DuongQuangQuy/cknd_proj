@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+        <record id="estate_autofill_view_form" model="ir.ui.view">
+            <field name="name">estate.autofill.view.form</field>
+            <field name="model">estate.autofill</field>
+            <field name="arch" type="xml">
+                <form string="Nhập liệu AI (Gemini)">
+                    <header>
+                        <button name="action_process" string="✨ Phân tích &amp; Tạo tin đăng" type="object"
+                                class="oe_highlight"/>
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="action_view_estates" type="object"
+                                    class="oe_stat_button" icon="fa-home"
+                                    attrs="{'invisible': [('estate_count', '=', 0)]}">
+                                <field name="estate_count" widget="statinfo" string="Tin đã tạo"/>
+                            </button>
+                        </div>
+                        <group>
+                            <field name="name"/>
+                        </group>
+                        <p class="text-muted">
+                            Dán vào bên dưới một hoặc nhiều tin rao nhà đất (nguyên văn, dạng tốc ký môi giới),
+                            sau đó bấm "Phân tích &amp; Tạo tin đăng". Nội dung gốc và kết quả xử lý sẽ được lưu lại
+                            để xem lại sau này. Nếu có ảnh chụp địa chỉ (bản đồ, sổ hồng, biển số nhà...), đính kèm
+                            vào ảnh bên dưới - AI sẽ ưu tiên đọc địa chỉ từ ảnh thay vì từ nội dung tin.
+                        </p>
+                        <group>
+                            <field name="raw_text" nolabel="1" placeholder="Dán nội dung tin đăng vào đây..."/>
+                        </group>
+                        <group string="Ảnh địa chỉ (không bắt buộc)">
+                            <field name="image_name" invisible="1"/>
+                            <field name="image" widget="image" filename="image_name" nolabel="1" options="{'size': [200, 200]}"/>
+                        </group>
+                        <group string="Hình ảnh đính kèm (không bắt buộc)">
+                            <field name="attachment_ids" nolabel="1" widget="many2many_attachment_preview"/>
+                        </group>
+                        <group string="Kết quả xử lý" attrs="{'invisible': [('result_log', '=', False)]}">
+                            <field name="result_log" nolabel="1" readonly="1"/>
+                        </group>
+                        <group string="Log JSON trả về từ AI (debug)"
+                               attrs="{'invisible': [('ai_response_log', '=', False)]}">
+                            <field name="ai_response_log" nolabel="1" readonly="1"/>
+                        </group>
+                        <field name="estate_ids" attrs="{'invisible': [('estate_count', '=', 0)]}">
+                            <tree>
+                                <field name="date_show" widget="html"/>
+                                <field name="code_demand_secondary_show" widget="html"/>
+                                <field name="number_house"/>
+                                <field name="street_id"/>
+                                <field name="address_ward_district_show" widget="html"/>
+                                <field name="total_price"/>
+                            </tree>
+                        </field>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="estate_autofill_view_tree" model="ir.ui.view">
+            <field name="name">estate.autofill.view.tree</field>
+            <field name="model">estate.autofill</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="create_date"/>
+                    <field name="create_uid"/>
+                    <field name="state"/>
+                    <field name="estate_count"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="estate_autofill_action" model="ir.actions.act_window">
+            <field name="name">Nhập liệu AI (Gemini)</field>
+            <field name="res_model">estate.autofill</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'default_name': 'Nhập liệu AI'}</field>
+        </record>
+    </data>
+</odoo>

@@ -84,3 +84,6 @@ access_real_estate_favorite_group_real_estate_favorite_vister,access_real_estate
 access_import_image_log_group_real_estate_import_data,access.import.image.log.group.real.estate.import.data,model_import_image_log,base.group_user,1,1,1,1
 
 access_estate_category_group_user,access_estate_category_group_user,model_estate_category,base.group_user,1,1,1,1
+
+access_estate_autofill_group_employee,access.estate.autofill.group.employee,model_estate_autofill,fs_real_estate.group_real_estate_employee,1,1,1,0
+access_estate_autofill_group_manager,access.estate.autofill.group.manager,model_estate_autofill,fs_real_estate.group_real_estate_manager,1,1,1,1

@@ -50,6 +50,7 @@
         'views/search_demand_estate_customer_view.xml',
         'views/real_estate_prices_config_views.xml',
         'views/real_estate_advertising_template_views.xml',
+        'views/estate_autofill_views.xml',
 
         'views/call_sale_estate_view.xml',
         'views/offering_history_view.xml',

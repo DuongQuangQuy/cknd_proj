@@ -27,3 +27,6 @@ from . import real_estate_advertising_template
 from . import real_estate_favorite
 from . import import_image_log
 from . import estate_category
+from . import agent_config
+from . import estate_autofill
+from . import ir_attachment

@@ -5,6 +5,7 @@ import base64
 from odoo.modules.module import get_module_resource
 import json
 import urllib.parse
+import re
 
 
 # def _select_nextval(cr, seq_name):
@@ -102,10 +103,16 @@ class RealEstate(models.Model):
     district_id = fields.Many2one('res.district', 'Quận/Huyện', required=True)
     city_id = fields.Many2one('res.city', 'Thành phố', required=True)
     number_house = fields.Char('Số nhà', required=True)
+    number_house_parity = fields.Selection(
+        [('even', 'Chẵn'), ('odd', 'Lẻ')],
+        string='Số nhà chẵn/lẻ',
+        compute='_compute_number_house_parity',
+        store=True,
+    )
     latitude = fields.Float('Vĩ độ', digits=(10, 7))
     longitude = fields.Float('Kinh độ', digits=(10, 7))
     not_found = fields.Boolean()
-    url_map = fields.Html(string='Link chỉ định gg map')
+    url_map = fields.Text(string='Link chỉ định gg map')
 
     def geocode_address_backup(self):
         import requests
@@ -257,6 +264,19 @@ class RealEstate(models.Model):
     deposit_paid_display = fields.Text(string='Giá', compute='_compute_deposit_paid_display', store=False)
 
     address_str = fields.Char(string='địa chỉ str', compute='_compute_address_str', store=True)
+
+    autofill_id = fields.Many2one('estate.autofill', string='Nguồn nhập liệu AI', readonly=True)
+
+    @api.depends('number_house')
+    def _compute_number_house_parity(self):
+        # Chẵn/lẻ được xác định theo phần số ở ĐẦU number_house (VD: "12A" -> 12 -> chẵn),
+        # cùng logic với regex '^[0-9]+' dùng trong real.estate.search.
+        for rec in self:
+            match = re.match(r'^(\d+)', rec.number_house or '')
+            if not match:
+                rec.number_house_parity = False
+                continue
+            rec.number_house_parity = 'even' if int(match.group(1)) % 2 == 0 else 'odd'
 
     @api.depends('number_house', 'street_id', 'ward_id', 'district_id', 'city_id')
     def _compute_address_str(self):
@@ -637,7 +657,37 @@ class RealEstate(models.Model):
             rec.show_hide_table_role = not rec.show_hide_table_role
 
     def action_location(self):
-        pass
+        self.ensure_one()
+        if not self.url_map:
+            raise UserError(_('Chưa có link Google Maps.'))
+
+        href_match = re.search(r'href=[\'"]([^\'"]+)[\'"]', self.url_map)
+        if href_match:
+            url = href_match.group(1)
+        else:
+            url_match = re.search(r'https?://[^\s<]+', self.url_map)
+            url = url_match.group(0).rstrip('.,') if url_match else False
+
+        if not url:
+            raise UserError(_('Không tìm thấy link Google Maps hợp lệ.'))
+
+        return {
+            'type': 'ir.actions.act_url',
+            'url': url.replace('&amp;', '&'),
+            'target': 'new',
+        }
+
+    @api.model
+    def action_open_ai_autofill(self):
+        """Mở form nhập liệu bằng AI (Gemini) từ text tin rao."""
+        return {
+            'type': 'ir.actions.act_window',
+            'name': _('Nhập liệu AI (Gemini)'),
+            'res_model': 'estate.autofill',
+            'view_mode': 'form',
+            'target': 'new',
+            'context': {'default_name': _('Nhập liệu AI')},
+        }
 
     def _get_address(self, house=0, street=0, ward=0, district=0, city=0):
         """Get full address of real estate with parameters are 1

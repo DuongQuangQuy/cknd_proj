@@ -254,7 +254,7 @@ class RealEstateSearch(models.Model):
 
         type_demand = ''
         if self.type_demand_ids:
-            style = f"AND type_demand_id in ({','.join(map(str, self.type_demand_ids.ids))})"
+            type_demand = f"AND type_demand_id in ({','.join(map(str, self.type_demand_ids.ids))})"
 
         secondary_form = ''
         if self.secondary_form_ids:

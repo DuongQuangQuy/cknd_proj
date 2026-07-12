@@ -28,6 +28,39 @@
                                 </div>
                             </div>
                         </div>
+                        <h2>Nhập liệu AI (Gemini)</h2>
+                        <div class="row mt16 o_settings_container" id="gemini_ai_setting">
+                            <div class="col-12 col-lg-6 o_setting_box">
+                                <div class="o_setting_left_pane"/>
+                                <div class="o_setting_right_pane">
+                                    <div class="content-group">
+                                        <div class="row mt16">
+                                            <div class="col-lg-6 o_light_label">
+                                                <label for="gemini_api_key"/>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <field name="gemini_api_key" password="True"/>
+                                            </div>
+                                        </div>
+                                        <div class="row mt16">
+                                            <div class="col-lg-6 o_light_label">
+                                                <label for="gemini_model"/>
+                                            </div>
+                                            <div class="col-lg-6">
+                                                <field name="gemini_model"/>
+                                            </div>
+                                        </div>
+                                        <div class="row mt16">
+                                            <div class="col-lg-6 o_light_label"/>
+                                            <div class="col-lg-6">
+                                                <button name="action_test_gemini_connection" type="object"
+                                                        string="🔍 Kiểm tra kết nối" class="btn-secondary"/>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </xpath>
             </field>

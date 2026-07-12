@@ -2,7 +2,7 @@
 <odoo>
     <data>
         <menuitem id="menu_real_estate_root"
-                  name="Bất động sản"
+                  name="CKND"
                   sequence="20"
                   web_icon="fs_real_estate,static/description/icon.png"
         />
@@ -63,6 +63,14 @@
                   sequence="5"
                   groups="fs_real_estate.group_real_estate_employee"
         />
+
+<!--        <menuitem id="menu_estate_autofill_action_sub"-->
+<!--                  name="Nhập liệu AI (Gemini)"-->
+<!--                  parent="menu_real_estate_sub_root"-->
+<!--                  action="estate_autofill_action"-->
+<!--                  sequence="6"-->
+<!--                  groups="fs_real_estate.group_real_estate_employee"-->
+<!--        />-->
 
 
 

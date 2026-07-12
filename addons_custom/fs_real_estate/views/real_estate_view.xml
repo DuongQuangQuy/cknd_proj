@@ -27,6 +27,7 @@
         <field name="arch" type="xml">
             <form string="" >
                 <header>
+                    <button name="action_open_ai_autofill" string="🤖 Nhập liệu AI" type="object" class="btn-secondary"/>
                     <button name="action_not_post" string="Chưa đăng bài" type="object" class="btn-primary" attrs="{'invisible': [('status_advertising', '==', 'not_post')]}"/>
                     <button name="action_stop_post" string="Ngưng đăng bài" type="object" class="btn-primary" attrs="{'invisible': [('status_advertising', 'in', ('stop_post','not_post'))]}"/>
                     <button name="action_posted" string="Đã đăng" type="object" class="btn-primary" attrs="{'invisible': [('status_advertising', '==', 'posted')]}"/>
@@ -56,11 +57,11 @@
                         </group>
                         <group >
                         <button string="Chia sẽ" name="action_show_advertising_sample" type="object" class="oe_highlight" style="min-width:30px; min-height:30px;"/>
-                            <!-- <button name="action_location"
+                            <button name="action_location"
                                     type="object"
                                     string="Vị trí"
                                     class="oe_highlight"
-                                    style="margin-left:100%"/> -->
+                                    style="min-width:30px; min-height:30px;"/>
                             <field name="type_demand_id"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" style="width: 90px !important; min-width: 90px !important;" required="1"/>
                             <field name="secondary_form_id"  options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" required="1"/>
                             <field name="date_receive"/>
@@ -103,6 +104,7 @@
                                         <field name="longitude" class="oe_inline"/>
                                         <button name="geocode_address" type="object" string="🌍 Lấy tọa độ" class="btn-link"/>
                                     </div>
+                                    <field name="url_map" placeholder="Link Google Maps" />
                                 </group>
                                 <group string="Vai trò">
                                     <button name="show_role_line"
@@ -163,6 +165,7 @@
                             <notebook>
                                 <page string="Ghi chú">
                                     <field name="note"/>
+                                    <field name="autofill_id" readonly="1" attrs="{'invisible': [('autofill_id', '=', False)]}"/>
                                 </page>
                                 <page string="Tài liệu">
                                     <group>
