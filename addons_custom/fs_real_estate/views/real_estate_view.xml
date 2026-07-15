@@ -144,6 +144,7 @@
                                     <br/>
                                     <field name="type_estate_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
                                     <field name="style_id" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }"/>
+                                    <field name="total_floor"/>
                                     <field name="structure_ids" options="{'no_open': True, 'no_create_edit': True, 'no_create': True }" widget="many2many_tags" style="width: 170px !important; min-width: 170px !important;"/>
                                     <field name="bathroom"/>
                                     <field name="is_elevator"/>

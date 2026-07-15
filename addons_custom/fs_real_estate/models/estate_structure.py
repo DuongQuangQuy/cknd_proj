@@ -9,3 +9,4 @@ class EstateStructure(models.Model):
     _rec_name = 'name'
 
     name = fields.Char(string='Tên')
+    total_floor = fields.Integer(string='Tổng số tầng')

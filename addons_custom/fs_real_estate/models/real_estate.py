@@ -113,6 +113,15 @@ class RealEstate(models.Model):
     longitude = fields.Float('Kinh độ', digits=(10, 7))
     not_found = fields.Boolean()
     url_map = fields.Text(string='Link chỉ định gg map')
+    total_floor = fields.Integer(string='Tổng số tầng',)
+
+    @api.onchange('structure_ids')
+    def _onchange_structure_ids(self):
+        for rec in self:
+            if rec.structure_ids:
+                rec.total_floor = max(rec.structure_ids.mapped('total_floor')) or 0
+            else:
+                rec.total_floor = 0
 
     def geocode_address_backup(self):
         import requests
@@ -308,7 +317,12 @@ class RealEstate(models.Model):
     @api.depends('deposit', 'paid', 'fee', 'total_price')
     def _compute_deposit_paid_display(self):
         for record in self:
-            record.deposit_paid_display = f"Giá: {record.total_price}\nCọc: {record.deposit}\nTT: {record.paid}\nPhí: {record.fee or ''}"
+            lines = []
+            if record.total_price:
+                lines.append(f"Giá: {record.total_price}")
+            if record.fee:
+                lines.append(f"Phí: {record.fee}")
+            record.deposit_paid_display = '\n'.join(lines)
 
     @api.depends('attachment_ids')
     def _compute_image_avatar(self):
