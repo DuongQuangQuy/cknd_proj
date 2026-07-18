@@ -309,26 +309,26 @@ class RealEstate(models.Model):
 
             rec.address_str = ', '.join(parts) if parts else ''
 
-    @api.constrains('number_house', 'street_id', 'ward_id', 'district_id', 'city_id')
-    def _check_duplicate_address(self):
-        # Kiểm tra trùng địa chỉ (số nhà -> thành phố), không phân biệt hoa/thường ở số nhà
-        for rec in self:
-            if not (rec.number_house and rec.street_id and rec.district_id and rec.city_id):
-                continue
+    # @api.constrains('number_house', 'street_id', 'ward_id', 'district_id', 'city_id')
+    # def _check_duplicate_address(self):
+    #     # Kiểm tra trùng địa chỉ (số nhà -> thành phố), không phân biệt hoa/thường ở số nhà
+    #     for rec in self:
+    #         if not (rec.number_house and rec.street_id and rec.district_id and rec.city_id):
+    #             continue
 
-            domain = [
-                ('id', '!=', rec.id),
-                ('number_house', '=ilike', (rec.number_house or '').strip()),
-                ('street_id', '=', rec.street_id.id),
-                ('ward_id', '=', rec.ward_id.id),
-                ('district_id', '=', rec.district_id.id),
-                ('city_id', '=', rec.city_id.id),
-            ]
-            if rec.search_count(domain):
-                raise ValidationError(_(
-                    'Địa chỉ này đã tồn tại trong hệ thống (trùng Số nhà - Đường - Phường - Quận/Huyện - '
-                    'Thành phố, không phân biệt hoa/thường). Vui lòng kiểm tra lại!'
-                ))
+    #         domain = [
+    #             ('id', '!=', rec.id),
+    #             ('number_house', '=ilike', (rec.number_house or '').strip()),
+    #             ('street_id', '=', rec.street_id.id),
+    #             ('ward_id', '=', rec.ward_id.id),
+    #             ('district_id', '=', rec.district_id.id),
+    #             ('city_id', '=', rec.city_id.id),
+    #         ]
+    #         if rec.search_count(domain):
+    #             raise ValidationError(_(
+    #                 'Địa chỉ này đã tồn tại trong hệ thống (trùng Số nhà - Đường - Phường - Quận/Huyện - '
+    #                 'Thành phố, không phân biệt hoa/thường). Vui lòng kiểm tra lại!'
+    #             ))
 
     @api.onchange('horizontal', 'length')
     def _onchange_horizontal(self):
