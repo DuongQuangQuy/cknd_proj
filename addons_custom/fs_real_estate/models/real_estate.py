@@ -693,18 +693,22 @@ class RealEstate(models.Model):
 
     def action_location(self):
         self.ensure_one()
-        if not self.url_map:
-            raise UserError(_('Chưa có link Google Maps.'))
+        url = False
 
-        href_match = re.search(r'href=[\'"]([^\'"]+)[\'"]', self.url_map)
-        if href_match:
-            url = href_match.group(1)
-        else:
-            url_match = re.search(r'https?://[^\s<]+', self.url_map)
-            url = url_match.group(0).rstrip('.,') if url_match else False
+        if self.url_map:
+            href_match = re.search(r'href=[\'"]([^\'"]+)[\'"]', self.url_map)
+            if href_match:
+                url = href_match.group(1)
+            else:
+                url_match = re.search(r'https?://[^\s<]+', self.url_map)
+                url = url_match.group(0).rstrip('.,') if url_match else False
 
         if not url:
-            raise UserError(_('Không tìm thấy link Google Maps hợp lệ.'))
+            # Chưa có link Google Maps -> tìm theo địa chỉ
+            address = self._get_address(house=1, street=1, ward=1, district=1, city=1)
+            if not address:
+                raise UserError(_('Chưa có link Google Maps và không đủ thông tin địa chỉ để tìm kiếm.'))
+            url = 'https://www.google.com/maps/search/?api=1&query=' + urllib.parse.quote(address)
 
         return {
             'type': 'ir.actions.act_url',
